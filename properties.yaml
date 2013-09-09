@@ -1,6 +1,6 @@
 ---
-package : com.example
-project : my-project
-description : ~
-project_url : ~
-github_user : ~
+package : net.avh4.tools
+project : rectified
+description : Simple, expressive, and programmer-friendly UI design
+project_url : http://github.com/avh4/rectified
+github_user : avh4
