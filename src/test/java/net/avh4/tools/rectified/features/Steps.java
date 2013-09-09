@@ -29,7 +29,7 @@ public class Steps {
 
     @When("^I set the background color of the main region$")
     public void I_set_the_background_color_of_the_main_region() throws Throwable {
-        app.codePanel().replaceCode("" +
+        app.codePanel().actions().replaceCode("" +
                 "{\n" +
                 "    \"design\": [\n" +
                 "        {\n" +

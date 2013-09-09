@@ -29,4 +29,17 @@ public class JComponentAssert extends AbstractAssert<JComponentAssert, JComponen
         }
         return this;
     }
+
+    public void isApproved() {
+        try {
+            final Matcher<Object> matcher = ImageComparisonMatchers.isApproved();
+            if (!matcher.matches(actual)) {
+                Description d = new StringDescription();
+                matcher.describeMismatch(actual, d);
+                failWithMessage("Expected <%s> to be approved, but %s", actual, d);
+            }
+        } catch (IOException e) {
+            failWithMessage("Expected <%s> to be approved, but got IOException\n%s", actual, e);
+        }
+    }
 }
