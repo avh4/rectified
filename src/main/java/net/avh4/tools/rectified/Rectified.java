@@ -21,6 +21,13 @@ public class Rectified {
             }
         };
         window.add(designPanel, BorderLayout.WEST);
+        final JTextArea codePanel = new JTextArea("{\"design\": []}") {
+            @Override public Dimension getPreferredSize() {
+                return new Dimension(400, 400);
+            }
+        };
+        codePanel.setMargin(new Insets(20, 20, 20, 20));
+        window.add(codePanel, BorderLayout.CENTER);
         window.pack();
         window.setLocationRelativeTo(null);
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
