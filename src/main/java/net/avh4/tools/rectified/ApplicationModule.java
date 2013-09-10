@@ -9,6 +9,7 @@ public class ApplicationModule {
         pico.as(Characteristics.CACHE).addComponent(CodePanel.class);
         pico.as(Characteristics.CACHE).addComponent(DesignPanel.class);
         pico.as(Characteristics.CACHE).addComponent(MainController.class);
+        pico.as(Characteristics.CACHE).addComponent(AppConfig.class);
         pico.addComponent(DesignParser.class);
     }
 }
