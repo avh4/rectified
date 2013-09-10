@@ -1,4 +1,4 @@
-package net.avh4.tools.rectified.model;
+package net.avh4.tools.rectified.model.placement;
 
 import net.avh4.math.geometry.Rect;
 

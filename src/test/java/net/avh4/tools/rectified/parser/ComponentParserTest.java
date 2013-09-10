@@ -2,8 +2,8 @@ package net.avh4.tools.rectified.parser;
 
 import net.avh4.tools.rectified.model.ColorComponent;
 import net.avh4.tools.rectified.model.Component;
-import net.avh4.tools.rectified.model.Placement;
-import net.avh4.tools.rectified.model.PlacementComponent;
+import net.avh4.tools.rectified.model.placement.Placement;
+import net.avh4.tools.rectified.model.placement.PlacementComponent;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;

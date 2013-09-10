@@ -1,8 +1,9 @@
-package net.avh4.tools.rectified.model;
+package net.avh4.tools.rectified.model.placement;
 
 import net.avh4.framework.uilayer.scene.FontMetricsService;
 import net.avh4.framework.uilayer.scene.GraphicsOperations;
 import net.avh4.math.geometry.Rect;
+import net.avh4.tools.rectified.model.Component;
 
 public class PlacementComponent implements Component {
     private final Placement placement;

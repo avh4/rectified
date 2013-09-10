@@ -1,9 +1,9 @@
 package net.avh4.tools.rectified.parser;
 
 import net.avh4.tools.rectified.InvalidCodeException;
-import net.avh4.tools.rectified.model.BottomPlacement;
-import net.avh4.tools.rectified.model.Placement;
-import net.avh4.tools.rectified.model.TopPlacement;
+import net.avh4.tools.rectified.model.placement.BottomPlacement;
+import net.avh4.tools.rectified.model.placement.Placement;
+import net.avh4.tools.rectified.model.placement.TopPlacement;
 import org.json.JSONException;
 import org.json.JSONObject;
 
