@@ -1,7 +1,7 @@
 package net.avh4.tools.rectified;
 
-import net.avh4.framework.uilayer.swing.SwingSceneRenderer;
 import net.avh4.swing.GradientStage;
+import net.avh4.tools.rectified.swing.DesignPanelView;
 import org.picocontainer.DefaultPicoContainer;
 import org.picocontainer.MutablePicoContainer;
 
@@ -19,15 +19,7 @@ public class Rectified {
 
         JFrame window = new JFrame("Rectified α");
         window.setLayout(new BorderLayout());
-        final JComponent designPanel = new SwingSceneRenderer(app.designPanel()) {
-            @Override public Dimension getMinimumSize() {
-                return getPreferredSize();
-            }
-
-            @Override public Dimension getPreferredSize() {
-                return new Dimension(320, 508);
-            }
-        };
+        final JComponent designPanel = new DesignPanelView(app.designPanel());
         window.add(new GradientStage(designPanel), BorderLayout.WEST);
         final JTextArea codePanel = new JTextArea() {
             @Override public Dimension getPreferredSize() {
