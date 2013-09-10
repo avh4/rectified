@@ -20,7 +20,7 @@ public class Steps {
     private Agent agent = new Agent();
     private RectifiedApp app;
 
-    @Given("^a new project$")
+    @Given("^a new design")
     public void a_new_project() throws Throwable {
         MutablePicoContainer pico = new DefaultPicoContainer();
         ApplicationModule.configure(pico);
@@ -33,11 +33,30 @@ public class Steps {
                 "{\n" +
                 "    \"design\": [\n" +
                 "        {\n" +
-                "            \"remainder\": true,\n" +
-                "            \"background\": \"#DC143C\"\n" +
+                "            \"color\": \"#DC143C\"\n" +
                 "        }\n" +
                 "    ]\n" +
                 "}");
+    }
+
+    @When("^I add a constant-size region to the top$")
+    public void I_add_a_constant_size_region_to_the_top() throws Throwable {
+        app.codePanel().actions().replaceCode("" +
+                "{\n" +
+                "    \"design\": [\n" +
+                "        {\n" +
+                "            \"placement\": {\n" +
+                "                \"top\": 48,\n" +
+                "                \"inside\": [\n" +
+                "                    {\n" +
+                "                        \"color\": \"#7171C6\"\n" +
+                "                    }\n" +
+                "                ]\n" +
+                "            }\n" +
+                "        }\n" +
+                "    ]\n" +
+                "}"
+        );
     }
 
     @Then("^I see the new background color in the preview$")
@@ -48,5 +67,15 @@ public class Steps {
             }
         };
         assertThat(p).looksLike("crimson_mdpi.png");
+    }
+
+    @Then("^I see the new region$")
+    public void I_see_the_new_region() throws Throwable {
+        JComponent p = new SwingSceneRenderer(app.designPanel()) {
+            @Override public Dimension getPreferredSize() {
+                return new Dimension(320, 508);
+            }
+        };
+        assertThat(p).looksLike("top_48_mdpi.png");
     }
 }

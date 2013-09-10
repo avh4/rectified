@@ -7,12 +7,8 @@ import net.avh4.math.geometry.Rect;
 public class ColorComponent implements Component {
     private final int color;
 
-    private static int parseColor(String color) {
-        return 0xff000000 | Integer.parseInt(color.substring(1), 16);
-    }
-
-    public ColorComponent(String color) {
-        this.color = parseColor(color);
+    public ColorComponent(int color) {
+        this.color = color;
     }
 
     @Override public void draw(Rect bounds, GraphicsOperations g, FontMetricsService fm) {

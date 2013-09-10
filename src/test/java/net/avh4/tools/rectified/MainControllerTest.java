@@ -1,6 +1,7 @@
 package net.avh4.tools.rectified;
 
 import net.avh4.tools.rectified.model.Design;
+import net.avh4.tools.rectified.parser.DesignParser;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;

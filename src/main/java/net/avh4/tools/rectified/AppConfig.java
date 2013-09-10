@@ -6,6 +6,6 @@ public class AppConfig {
     }
 
     public String defaultDesign() {
-        return "{\"design\": [{\"background\":\"#eeeeee\"}]}";
+        return "{\"design\": [{\"color\":\"#eeeeee\"}]}";
     }
 }

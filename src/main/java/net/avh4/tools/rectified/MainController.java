@@ -1,6 +1,7 @@
 package net.avh4.tools.rectified;
 
 import net.avh4.tools.rectified.model.Design;
+import net.avh4.tools.rectified.parser.DesignParser;
 
 public class MainController implements CodePanel.Listener {
     private final DesignPanel designPanel;

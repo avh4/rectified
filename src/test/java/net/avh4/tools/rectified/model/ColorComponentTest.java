@@ -18,7 +18,7 @@ public class ColorComponentTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        subject = new ColorComponent("#F5DEB3");
+        subject = new ColorComponent(0xFFF5DEB3);
     }
 
     @Test

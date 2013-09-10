@@ -1,9 +1,9 @@
 package net.avh4.tools.rectified.model;
 
 public class Design {
-    private final ColorComponent mainComponent;
+    private final Component mainComponent;
 
-    public Design(ColorComponent mainComponent) {
+    public Design(Component mainComponent) {
         this.mainComponent = mainComponent;
     }
 
