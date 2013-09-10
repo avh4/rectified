@@ -16,8 +16,11 @@ public class DesignParser {
     public Design parse(String code) throws InvalidCodeException {
         try {
             final JSONArray design = new JSONObject(code).getJSONArray("design");
-            final Component component = componentParser.parse(design.getString(0));
-            return new Design(component);
+            Component[] components = new Component[design.length()];
+            for (int i = 0; i < components.length; i++) {
+                components[i] = componentParser.parse(design.getString(i));
+            }
+            return new Design(components);
         } catch (Throwable e) {
             e.printStackTrace();
             throw new InvalidCodeException(e);

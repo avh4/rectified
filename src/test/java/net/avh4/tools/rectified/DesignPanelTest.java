@@ -20,12 +20,13 @@ public class DesignPanelTest {
     @Mock private FontMetricsService fm;
 
     @Mock private Component c1;
+    @Mock private Component c2;
     @Mock private Design design;
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        stub(design.getMainComponent()).toReturn(c1);
+        stub(design.components()).toReturn(new Component[]{c1, c2});
         subject = new DesignPanel();
         subject.setDesign(design);
     }
@@ -34,5 +35,6 @@ public class DesignPanelTest {
     public void shouldRenderMainComponent() throws Exception {
         subject.draw(Rect.ofSize(320, 508), g, fm);
         verify(c1).draw(Rect.ofSize(320, 508), g, fm);
+        verify(c2).draw(Rect.ofSize(320, 508), g, fm);
     }
 }

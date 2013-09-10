@@ -4,6 +4,8 @@
 
 Simple, expressive, and programmer-friendly UI design
 
+![Screenshot](screenshot.png)
+
 ## Build commands
 
 * [Mutation coverage](http://pitest.org/): `mvn clean test org.pitest:pitest-maven:mutationCoverage`

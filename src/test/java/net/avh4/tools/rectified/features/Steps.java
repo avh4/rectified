@@ -44,15 +44,12 @@ public class Steps {
         app.codePanel().actions().replaceCode("" +
                 "{\n" +
                 "    \"design\": [\n" +
+                "        {\"color\": \"#DC143C\"},\n" +
                 "        {\n" +
-                "            \"placement\": {\n" +
-                "                \"top\": 48,\n" +
-                "                \"inside\": [\n" +
-                "                    {\n" +
-                "                        \"color\": \"#7171C6\"\n" +
-                "                    }\n" +
-                "                ]\n" +
-                "            }\n" +
+                "            \"placement\": {\"top\": 48},\n" +
+                "            \"inside\": [\n" +
+                "                {\"color\": \"#7171C6\"}\n" +
+                "            ]\n" +
                 "        }\n" +
                 "    ]\n" +
                 "}"

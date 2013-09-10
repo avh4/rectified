@@ -18,8 +18,9 @@ public class DesignPanel implements Element {
             g.drawText(fm, "(no vaild design)", bounds, Font.OPEN_SANS, Color.DARK_GRAY);
             return;
         }
-        final Component mainComponent = design.getMainComponent();
-        mainComponent.draw(bounds, g, fm);
+        for (Component component : design.components()) {
+            component.draw(bounds, g, fm);
+        }
     }
 
     public void setDesign(Design design) {
