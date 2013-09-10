@@ -33,4 +33,11 @@ public class PlacementComponentTest {
         subject.draw(bounds, g, fm);
         verify(c1).draw(placedBounds, g, fm);
     }
+
+    @Test
+    public void shouldDrawAllComponentInPlacedBounds() throws Exception {
+        subject.draw(bounds, g, fm);
+        verify(c1).draw(placedBounds, g, fm);
+        verify(c2).draw(placedBounds, g, fm);
+    }
 }

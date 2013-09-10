@@ -15,7 +15,9 @@ public class PlacementComponent implements Component {
 
     @Override public void draw(Rect bounds, GraphicsOperations g, FontMetricsService fm) {
         Rect placedBounds = placement.place(bounds);
-        components[0].draw(placedBounds, g, fm);
+        for (Component component : components) {
+            component.draw(placedBounds, g, fm);
+        }
     }
 
     @Override public String toString() {
