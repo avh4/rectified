@@ -1,6 +1,7 @@
 package net.avh4.tools.rectified.parser;
 
 import net.avh4.tools.rectified.InvalidCodeException;
+import net.avh4.tools.rectified.model.BottomPlacement;
 import net.avh4.tools.rectified.model.Placement;
 import net.avh4.tools.rectified.model.TopPlacement;
 import org.json.JSONException;
@@ -12,6 +13,8 @@ public class PlacementParser {
             final JSONObject o = new JSONObject(json);
             if (o.has("top")) {
                 return new TopPlacement(o.getInt("top"));
+            } else if (o.has("bottom")) {
+                return new BottomPlacement(o.getInt("bottom"));
             } else {
                 throw new InvalidCodeException("Invalid placement: " + json);
             }
