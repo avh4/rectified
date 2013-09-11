@@ -22,4 +22,9 @@ public class ColorParserTest {
     public void shouldParseThreeDigitHex() throws Exception {
         assertThat(subject.parse("#468")).isEqualTo(0xff446688);
     }
+
+    @Test
+    public void shouldParseNull() throws Exception {
+        assertThat(subject.parse(null)).isEqualTo(0xff333333);
+    }
 }
