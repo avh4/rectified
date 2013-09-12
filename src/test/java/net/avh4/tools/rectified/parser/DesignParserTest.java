@@ -28,33 +28,7 @@ public class DesignParserTest {
     }
 
     @Test
-    public void shouldParseMainComponent() throws Exception {
-        final Design design = subject.parse("" +
-                "{\n" +
-                "    \"design\": [\n" +
-                "        {\n" +
-                "            \"color\": \"#DC143C\"\n" +
-                "        }\n" +
-                "    ]\n" +
-                "}");
-        assertThat(design).isNotNull();
-        assertThat(design.components()[0]).isNotNull();
-    }
-
-    @Test
-    public void shouldParseFirstComponent() throws Exception {
-        final Design design = subject.parse("" +
-                "{\n" +
-                "    \"design\": [\n" +
-                "        {\"color\": \"#DC143C\"}\n" +
-                "    ]\n" +
-                "}");
-        verify(componentParser).parse("{\"color\":\"#DC143C\"}");
-        assertThat(design.components()[0]).isSameAs(c1);
-    }
-
-    @Test
-    public void shouldParseAllComponents() throws Exception {
+    public void shouldParseDesign() throws Exception {
         final Design design = subject.parse("" +
                 "{\n" +
                 "    \"design\": [\n" +
@@ -64,7 +38,7 @@ public class DesignParserTest {
                 "}");
         verify(componentParser).parse("{\"color\":\"#DC143C\"}");
         verify(componentParser).parse("{\"color\":\"#AB143A\"}");
-        assertThat(design.components()).isEqualTo(new Component[]{c1, c2});
+        assertThat(design).isEqualTo(new Design(new Component[]{c1, c2}));
     }
 
     @Test(expected = InvalidCodeException.class)

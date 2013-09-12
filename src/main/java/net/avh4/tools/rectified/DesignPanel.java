@@ -6,7 +6,6 @@ import net.avh4.framework.uilayer.Font;
 import net.avh4.framework.uilayer.scene.FontMetricsService;
 import net.avh4.framework.uilayer.scene.GraphicsOperations;
 import net.avh4.math.geometry.Rect;
-import net.avh4.tools.rectified.model.Component;
 import net.avh4.tools.rectified.model.Design;
 
 
@@ -18,9 +17,7 @@ public class DesignPanel implements Element {
             g.drawText(fm, "(no vaild design)", bounds, Font.OPEN_SANS, Color.DARK_GRAY);
             return;
         }
-        for (Component component : design.components()) {
-            component.draw(bounds, g, fm);
-        }
+        design.draw(bounds, g, fm);
     }
 
     public void setDesign(Design design) {
