@@ -10,6 +10,8 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.Arrays;
+
 import static org.mockito.Mockito.stub;
 import static org.mockito.Mockito.verify;
 
@@ -27,7 +29,7 @@ public class PlacementComponentTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         stub(placement.place(bounds)).toReturn(placedBounds);
-        subject = new PlacementComponent(placement, new Component[]{c1, c2});
+        subject = new PlacementComponent(placement, Arrays.asList(c1, c2));
     }
 
     @Test

@@ -30,30 +30,13 @@ public class Steps {
     @When("^I set the background color of the main region$")
     public void I_set_the_background_color_of_the_main_region() throws Throwable {
         app.codePanel().actions().replaceCode("" +
-                "{\n" +
-                "    \"design\": [\n" +
-                "        {\n" +
-                "            \"color\": \"#DC143C\"\n" +
-                "        }\n" +
-                "    ]\n" +
-                "}");
+                "(design ((color (rgb \"#DC143C\"))))");
     }
 
     @When("^I add a constant-size region to the top$")
     public void I_add_a_constant_size_region_to_the_top() throws Throwable {
         app.codePanel().actions().replaceCode("" +
-                "{\n" +
-                "    \"design\": [\n" +
-                "        {\"color\": \"#DC143C\"},\n" +
-                "        {\n" +
-                "            \"placement\": {\"top\": 48},\n" +
-                "            \"inside\": [\n" +
-                "                {\"color\": \"#7171C6\"}\n" +
-                "            ]\n" +
-                "        }\n" +
-                "    ]\n" +
-                "}"
-        );
+                "(design ((color (rgb \"#DC143C\")) (placement (top 48) ((color (rgb \"#7171C6\"))))");
     }
 
     @Then("^I see the new background color in the preview$")

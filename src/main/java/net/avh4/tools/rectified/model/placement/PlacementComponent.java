@@ -7,9 +7,9 @@ import net.avh4.tools.rectified.model.Component;
 
 public class PlacementComponent implements Component {
     private final Placement placement;
-    private final Component[] components;
+    private final Iterable<Component> components;
 
-    public PlacementComponent(Placement placement, Component[] components) {
+    public PlacementComponent(Placement placement, Iterable<Component> components) {
         this.placement = placement;
         this.components = components;
     }

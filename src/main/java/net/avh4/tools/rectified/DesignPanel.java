@@ -17,7 +17,11 @@ public class DesignPanel implements Element {
             g.drawText(fm, "(no vaild design)", bounds, Font.OPEN_SANS, Color.DARK_GRAY);
             return;
         }
-        design.draw(bounds, g, fm);
+        try {
+            design.draw(bounds, g, fm);
+        } catch (RuntimeException e) {
+            g.drawText(fm, e.getLocalizedMessage(), bounds, Font.OPEN_SANS, Color.DARK_GRAY);
+        }
     }
 
     public void setDesign(Design design) {

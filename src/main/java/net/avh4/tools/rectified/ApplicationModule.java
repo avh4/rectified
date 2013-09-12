@@ -12,10 +12,10 @@ public class ApplicationModule {
         pico.as(Characteristics.CACHE).addComponent(MainController.class);
         pico.as(Characteristics.CACHE).addComponent(AppConfig.class);
 
-        pico.as(Characteristics.CACHE).addComponent(ComponentParser.class);
         pico.as(Characteristics.CACHE).addComponent(ColorParser.class);
-        pico.as(Characteristics.CACHE).addComponent(PlacementParser.class);
         pico.as(Characteristics.CACHE).addComponent(DesignParser.class);
         pico.as(Characteristics.CACHE).addComponent(FontParser.class);
+        pico.as(Characteristics.CACHE).addComponent(RectifiedLispParser.class);
+        pico.as(Characteristics.CACHE).addComponent(RectifiedLispContext.class);
     }
 }

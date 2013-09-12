@@ -3,6 +3,7 @@ package net.avh4.tools.rectified.parser;
 import net.avh4.tools.rectified.InvalidCodeException;
 import net.avh4.tools.rectified.model.Component;
 import net.avh4.tools.rectified.model.Design;
+import net.avh4.util.lisp.LispParser;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -16,33 +17,24 @@ import static org.mockito.Mockito.verify;
 public class DesignParserTest {
 
     private DesignParser subject;
-    @Mock private ComponentParser componentParser;
-    @Mock private Component c1;
-    @Mock private Component c2;
+    @Mock private RectifiedLispParser lispParser;
+    @Mock private Design design;
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        stub(componentParser.parse(Mockito.anyString())).toReturn(c1).toReturn(c2).toThrow(new RuntimeException("Ran out of mock components"));
-        subject = new DesignParser(componentParser);
+        stub(lispParser.parse("(design)")).toReturn(design);
+        subject = new DesignParser(lispParser);
     }
 
     @Test
     public void shouldParseDesign() throws Exception {
-        final Design design = subject.parse("" +
-                "{\n" +
-                "    \"design\": [\n" +
-                "        {\"color\": \"#DC143C\"},\n" +
-                "        {\"color\": \"#AB143A\"}\n" +
-                "    ]\n" +
-                "}");
-        verify(componentParser).parse("{\"color\":\"#DC143C\"}");
-        verify(componentParser).parse("{\"color\":\"#AB143A\"}");
-        assertThat(design).isEqualTo(new Design(new Component[]{c1, c2}));
+        final Design design = subject.parse("(design)");
+        assertThat(design).isSameAs(design);
     }
 
     @Test(expected = InvalidCodeException.class)
-    public void withBadJson_shouldThrowInvalidCode() throws Exception {
-        subject.parse("[}");
+    public void withBadLisp_shouldThrowInvalidCode() throws Exception {
+        subject.parse(")");
     }
 }

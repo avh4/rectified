@@ -11,11 +11,11 @@ public class AppConfig {
 
     public String defaultDesign() {
         try {
-            return IOUtils.toString(getClass().getResourceAsStream("example.json"));
+            return IOUtils.toString(getClass().getResourceAsStream("example.lisp"));
         } catch (IOException e) {
             System.out.println("Failed to load example");
             e.printStackTrace();
-            return "{\"design\": [{\"color\":\"#eeeeee\"}]}";
+            return "(design ((color (rgb \"#eeeeee\"))))";
         }
     }
 }

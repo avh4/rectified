@@ -8,6 +8,8 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.Arrays;
+
 import static org.mockito.Mockito.verify;
 
 public class DesignTest {
@@ -21,7 +23,7 @@ public class DesignTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        subject = new Design(new Component[]{c1, c2});
+        subject = new Design(Arrays.asList(c1, c2));
     }
 
     @Test

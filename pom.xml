@@ -71,7 +71,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <scope>compile</scope>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
@@ -81,12 +81,12 @@
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-core</artifactId>
-            <scope>compile</scope>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-library</artifactId>
-            <scope>compile</scope>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>info.cukes</groupId>
@@ -115,9 +115,15 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20090211</version>
+            <groupId>net.avh4.util</groupId>
+            <artifactId>lisp-parser</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>net.avh4.test</groupId>
+            <artifactId>junit-nested</artifactId>
+            <version>1.0.1</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

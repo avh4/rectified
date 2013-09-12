@@ -1,15 +1,14 @@
 package net.avh4.tools.rectified.model;
 
+import com.google.common.collect.Iterables;
 import net.avh4.framework.uilayer.scene.FontMetricsService;
 import net.avh4.framework.uilayer.scene.GraphicsOperations;
 import net.avh4.math.geometry.Rect;
 
-import java.util.Arrays;
-
 public class Design {
-    private final Component[] components;
+    private final Iterable<Component> components;
 
-    public Design(Component[] components) {
+    public Design(Iterable<Component> components) {
         this.components = components;
     }
 
@@ -21,7 +20,7 @@ public class Design {
 
     @Override public String toString() {
         return "Design{" +
-                "components=" + Arrays.toString(components) +
+                "components=" + Iterables.toString(components) +
                 '}';
     }
 
@@ -32,13 +31,13 @@ public class Design {
 
         Design design = (Design) o;
 
-        if (!Arrays.equals(components, design.components)) return false;
+        if (components != null ? !components.equals(design.components) : design.components != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        return components != null ? Arrays.hashCode(components) : 0;
+        return components != null ? components.hashCode() : 0;
     }
 }
