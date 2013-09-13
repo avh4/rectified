@@ -19,4 +19,9 @@ public class RightPlacementTest {
     public void shouldPlace() throws Exception {
         assertThat(subject.place(Rect.ofSize(800, 600))).isEqualTo(Rect.fromTopLeft(800 - 44, 0, 44, 600));
     }
+
+    @Test
+    public void shouldHaveRemainder() throws Exception {
+        assertThat(subject.remainder(Rect.ofSize(800, 600))).isEqualTo(Rect.ofSize(800-44, 600));
+    }
 }

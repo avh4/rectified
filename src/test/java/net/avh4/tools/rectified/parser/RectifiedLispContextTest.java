@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import static net.avh4.tools.rectified.test.support.Assertions.assertThat;
@@ -56,7 +57,9 @@ public class RectifiedLispContextTest {
 
         @Test
         public void shouldParsePlacementComponent() throws Exception {
-            checkParse(new PlacementComponent(placement, components), "placement", placement, components);
+            Iterable<Component> remainderComponents = Mockito.mock(Iterable.class);
+            checkParse(new PlacementComponent(placement, components, remainderComponents),
+                    "placement", placement, components, remainderComponents);
         }
 
         @Test

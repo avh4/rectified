@@ -19,4 +19,9 @@ public class TopPlacementTest {
     public void shouldPlace() throws Exception {
         assertThat(subject.place(Rect.ofSize(800, 600))).isEqualTo(Rect.ofSize(800, 48));
     }
+
+    @Test
+    public void shouldHaveRemainder() throws Exception {
+        assertThat(subject.remainder(Rect.ofSize(800, 600))).isEqualTo(Rect.fromTopLeft(0, 48, 800, 600-48));
+    }
 }

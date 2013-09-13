@@ -13,6 +13,10 @@ public class BottomPlacement implements Placement {
         return bounds.bottom(size);
     }
 
+    @Override public Rect remainder(Rect bounds) {
+        return bounds.top(bounds.height() - size);
+    }
+
     @Override public String toString() {
         return "BottomPlacement{" +
                 "size=" + size +

@@ -20,16 +20,20 @@ public class PlacementComponentTest {
     @Mock private Placement placement;
     @Mock private Component c1;
     @Mock private Component c2;
+    @Mock private Component c3;
+    @Mock private Component c4;
     @Mock private Rect bounds;
     @Mock private GraphicsOperations g;
     @Mock private FontMetricsService fm;
     @Mock private Rect placedBounds;
+    @Mock private Rect remainderBounds;
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         stub(placement.place(bounds)).toReturn(placedBounds);
-        subject = new PlacementComponent(placement, Arrays.asList(c1, c2));
+        stub(placement.remainder(bounds)).toReturn(remainderBounds);
+        subject = new PlacementComponent(placement, Arrays.asList(c1, c2), Arrays.asList(c3, c4));
     }
 
     @Test
@@ -43,5 +47,12 @@ public class PlacementComponentTest {
         subject.draw(bounds, g, fm);
         verify(c1).draw(placedBounds, g, fm);
         verify(c2).draw(placedBounds, g, fm);
+    }
+
+    @Test
+    public void shouldDrawRemainderComponentsInRemainderBounds() throws Exception {
+        subject.draw(bounds, g, fm);
+        verify(c3).draw(remainderBounds, g, fm);
+        verify(c4).draw(remainderBounds, g, fm);
     }
 }

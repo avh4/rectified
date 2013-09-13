@@ -8,16 +8,22 @@ import net.avh4.tools.rectified.model.Component;
 public class PlacementComponent implements Component {
     private final Placement placement;
     private final Iterable<Component> components;
+    private final Iterable<Component> remainderComponents;
 
-    public PlacementComponent(Placement placement, Iterable<Component> components) {
+    public PlacementComponent(Placement placement, Iterable<Component> components, Iterable<Component> remainderComponents) {
         this.placement = placement;
         this.components = components;
+        this.remainderComponents = remainderComponents;
     }
 
     @Override public void draw(Rect bounds, GraphicsOperations g, FontMetricsService fm) {
         Rect placedBounds = placement.place(bounds);
         for (Component component : components) {
             component.draw(placedBounds, g, fm);
+        }
+        Rect remainderBounds = placement.remainder(bounds);
+        for (Component component : remainderComponents) {
+            component.draw(remainderBounds, g, fm);
         }
     }
 

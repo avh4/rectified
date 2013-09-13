@@ -13,6 +13,10 @@ public class LeftPlacement implements Placement {
         return bounds.left(size);
     }
 
+    @Override public Rect remainder(Rect bounds) {
+        return bounds.right(bounds.width() - size);
+    }
+
     @Override public String toString() {
         return "LeftPlacement{" +
                 "size=" + size +

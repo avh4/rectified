@@ -11,7 +11,7 @@ Simple, expressive, and programmer-friendly UI design
 - `(color <color>)` a solid colored rectangle
 - `(image <filename>)` an image (png or jpg)
 - `(text <text> <font> <color> <padding>)` text (left-center-aligned)
-- `(placement <placement> (component...))` a container placed according to `placement`, containing `components`
+- `(placement <placement> (component...) (component...))` a container placed according to `placement`, the first list of components will be drawn inside the placement, and the second list will be drawn in the remaining space
 
 ### List of color formats
 

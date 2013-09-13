@@ -9,6 +9,14 @@ public class TopPlacement implements Placement {
         this.size = size;
     }
 
+    @Override public Rect place(Rect bounds) {
+        return bounds.top(size);
+    }
+
+    @Override public Rect remainder(Rect bounds) {
+        return bounds.bottom(bounds.height() - size);
+    }
+
     @Override public String toString() {
         return "TopPlacement{" +
                 "size=" + size +
@@ -30,9 +38,5 @@ public class TopPlacement implements Placement {
     @Override
     public int hashCode() {
         return size;
-    }
-
-    @Override public Rect place(Rect bounds) {
-        return bounds.top(size);
     }
 }

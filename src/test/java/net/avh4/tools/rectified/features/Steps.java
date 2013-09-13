@@ -36,7 +36,7 @@ public class Steps {
     @When("^I add a constant-size region to the top$")
     public void I_add_a_constant_size_region_to_the_top() throws Throwable {
         app.codePanel().actions().replaceCode("" +
-                "(design ((color (rgb \"#DC143C\")) (placement (top 48) ((color (rgb \"#7171C6\"))))");
+                "(design ((color (rgb \"#DC143C\")) (placement (top 48) ((color (rgb \"#7171C6\"))) ()))");
     }
 
     @Then("^I see the new background color in the preview$")

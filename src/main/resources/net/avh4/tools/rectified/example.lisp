@@ -1,9 +1,15 @@
 (design (
   (color (rgb "#ccc"))
-  (placement (top 50) (
-    (color (rgb "#AC143C")) ))
-  (placement (top 48) (
-    (color (rgb "#DC143C")) ))
-  (placement (bottom 44) (
-    (color (rgb "#333")) ))
+  (placement (top 50)
+    ((color (rgb "#AC143C")))
+    ())
+  (placement (top 48) 
+    ((color (rgb "#DC143C"))
+     (placement (left 48)
+       ((image "examples/star_mdpi.png"))
+       ((text "Header" (font 22) (rgb "#fff") 8))))
+    ())
+  (placement (bottom 44) 
+    ((color (rgb "#333")))
+    ())
   ))
