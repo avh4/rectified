@@ -3,6 +3,7 @@ package net.avh4.tools.rectified.parser;
 import net.avh4.tools.rectified.InvalidCodeException;
 import net.avh4.tools.rectified.model.ColorComponent;
 import net.avh4.tools.rectified.model.Design;
+import net.avh4.tools.rectified.model.ImageComponent;
 import net.avh4.tools.rectified.model.TextComponent;
 import net.avh4.tools.rectified.model.placement.*;
 import net.avh4.util.lisp.ConstructorObjectFactory;
@@ -21,6 +22,7 @@ public class RectifiedLispContext implements LispContext {
         add("color", ColorComponent.class);
         add("text", TextComponent.class);
         add("placement", PlacementComponent.class);
+        add("image", ImageComponent.class);
 
         add("top", TopPlacement.class);
         add("bottom", BottomPlacement.class);

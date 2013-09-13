@@ -9,6 +9,7 @@ Simple, expressive, and programmer-friendly UI design
 ### List of components
 
 - `(color <color>)` a solid colored rectangle
+- `(image <filename>)` an image (png or jpg)
 - `(placement <placement> (component...))` a container placed according to `placement`, containing `components`
 
 ### List of color formats

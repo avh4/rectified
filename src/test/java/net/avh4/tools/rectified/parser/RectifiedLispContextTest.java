@@ -2,10 +2,7 @@ package net.avh4.tools.rectified.parser;
 
 import net.avh4.framework.uilayer.Font;
 import net.avh4.test.junit.Nested;
-import net.avh4.tools.rectified.model.ColorComponent;
-import net.avh4.tools.rectified.model.Component;
-import net.avh4.tools.rectified.model.Design;
-import net.avh4.tools.rectified.model.TextComponent;
+import net.avh4.tools.rectified.model.*;
 import net.avh4.tools.rectified.model.placement.*;
 import net.avh4.util.lisp.ObjectFactory;
 import net.avh4.util.lisp.Symbol;
@@ -60,6 +57,11 @@ public class RectifiedLispContextTest {
         @Test
         public void shouldParsePlacementComponent() throws Exception {
             checkParse(new PlacementComponent(placement, components), "placement", placement, components);
+        }
+
+        @Test
+        public void shouldParseImageComponent() throws Exception {
+            checkParse(new ImageComponent("examples/star_mdpi.png"), "image", "examples/star_mdpi.png");
         }
     }
 
