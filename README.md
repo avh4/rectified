@@ -10,12 +10,17 @@ Simple, expressive, and programmer-friendly UI design
 
 - `(color <color>)` a solid colored rectangle
 - `(image <filename>)` an image (png or jpg)
+- `(text <text> <font> <color> <padding>)` text (left-center-aligned)
 - `(placement <placement> (component...))` a container placed according to `placement`, containing `components`
 
 ### List of color formats
 
 - `(rgb "#fff")` an RGB value with one digit for each channel
 - `(rgb "#ffffff")` an RGB value with two digits for each channel
+
+### List of font formats
+
+- `(font <pt>)` The default font ([Open Sans](http://www.google.com/fonts/specimen/Open+Sans)) of size `pt`
 
 ### List of placements
 

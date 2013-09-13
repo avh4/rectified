@@ -41,7 +41,7 @@ public class RectifiedLispContext implements LispContext {
 
         map.put(Symbol.s("font"), new ObjectFactory() {
             @Override public Object create(Object[] args) {
-                return fontParser.parse(null);
+                return fontParser.parse((Integer) args[1]);
             }
         });
     }
