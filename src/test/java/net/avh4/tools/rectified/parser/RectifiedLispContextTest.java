@@ -107,8 +107,8 @@ public class RectifiedLispContextTest {
 
         @Test
         public void shouldParseDefaultFont() throws Exception {
-            stub(fontParser.parse(null)).toReturn(font);
-            checkParse(font, "font");
+            stub(fontParser.parse(16)).toReturn(font);
+            checkParse(font, "font", 16);
         }
     }
 

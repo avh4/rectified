@@ -10,10 +10,12 @@ import java.awt.*;
 public class CodePanelView extends JTextArea {
     private final CodePanel codePanel;
     private final JComponent designPanel;
+    private ErrorPanelView errorPanel;
 
-    public CodePanelView(final CodePanel codePanel, final JComponent designPanel) {
+    public CodePanelView(final CodePanel codePanel, final DesignPanelView designPanel, ErrorPanelView errorPanel) {
         this.codePanel = codePanel;
         this.designPanel = designPanel;
+        this.errorPanel = errorPanel;
 
         this.setMargin(new Insets(20, 20, 20, 20));
         this.getDocument().addDocumentListener(new DocumentListener() {
@@ -34,6 +36,8 @@ public class CodePanelView extends JTextArea {
     private void refreshDesign() {
         codePanel.actions().replaceCode(this.getText());
         designPanel.repaint();
+        errorPanel.reloadData();
+        errorPanel.repaint();
     }
 
     @Override public Dimension getPreferredSize() {

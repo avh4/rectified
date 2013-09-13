@@ -6,10 +6,12 @@ import net.avh4.tools.rectified.parser.DesignParser;
 public class MainController implements CodePanel.Listener {
     private final DesignPanel designPanel;
     private final DesignParser designParser;
+    private final ErrorPanel errorPanel;
 
-    public MainController(DesignPanel designPanel, DesignParser designParser) {
+    public MainController(DesignPanel designPanel, DesignParser designParser, ErrorPanel errorPanel) {
         this.designPanel = designPanel;
         this.designParser = designParser;
+        this.errorPanel = errorPanel;
     }
 
     @Override public void codeDidChange(String newCode) {
@@ -17,8 +19,9 @@ public class MainController implements CodePanel.Listener {
         try {
             design = designParser.parse(newCode);
             designPanel.setDesign(design);
+            errorPanel.clearError();
         } catch (InvalidCodeException e) {
-            // do nothing
+            errorPanel.setError(e);
         }
     }
 }

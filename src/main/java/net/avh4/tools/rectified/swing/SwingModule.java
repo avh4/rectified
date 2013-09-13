@@ -8,5 +8,6 @@ public class SwingModule {
         pico.as(Characteristics.CACHE).addComponent(RectifiedAppView.class);
         pico.as(Characteristics.CACHE).addComponent(CodePanelView.class);
         pico.as(Characteristics.CACHE).addComponent(DesignPanelView.class);
+        pico.as(Characteristics.CACHE).addComponent(ErrorPanelView.class);
     }
 }
