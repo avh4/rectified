@@ -11,6 +11,10 @@ public class ColorComponent implements Component {
         this.color = color;
     }
 
+    public int color() {
+        return color;
+    }
+
     @Override public void draw(Rect bounds, GraphicsOperations g, FontMetricsService fm) {
         g.drawRect(bounds, color);
     }

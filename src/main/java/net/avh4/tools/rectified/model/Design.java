@@ -4,18 +4,36 @@ import com.google.common.collect.Iterables;
 import net.avh4.framework.uilayer.scene.FontMetricsService;
 import net.avh4.framework.uilayer.scene.GraphicsOperations;
 import net.avh4.math.geometry.Rect;
+import org.pcollections.PVector;
 
 public class Design {
-    private final Iterable<Component> components;
+    private final PVector<Component> components;
 
-    public Design(Iterable<Component> components) {
+    public Design(PVector<Component> components) {
         this.components = components;
+    }
+
+    public PVector<Component> components() {
+        return components;
     }
 
     public void draw(Rect bounds, GraphicsOperations g, FontMetricsService fm) {
         for (Component component : components) {
             component.draw(bounds, g, fm);
         }
+    }
+
+    public Design swap(final Component oldComponent, final Component newComponent) {
+        int index = components.indexOf(oldComponent);
+        if (index == -1)
+            throw new IllegalArgumentException("Tried to swap a component that doesn't exist in the design: " + oldComponent);
+        final PVector<Component> newComponents = components.with(index, newComponent);
+        return new Design(newComponents);
+    }
+
+    public Design add(Component component) {
+        final PVector<Component> newComponents = components.plus(component);
+        return new Design(newComponents);
     }
 
     @Override public String toString() {

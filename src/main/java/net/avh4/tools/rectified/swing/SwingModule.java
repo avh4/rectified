@@ -6,8 +6,8 @@ import org.picocontainer.MutablePicoContainer;
 public class SwingModule {
     public static void configure(MutablePicoContainer pico) {
         pico.as(Characteristics.CACHE).addComponent(RectifiedAppView.class);
-        pico.as(Characteristics.CACHE).addComponent(CodePanelView.class);
         pico.as(Characteristics.CACHE).addComponent(DesignPanelView.class);
-        pico.as(Characteristics.CACHE).addComponent(ErrorPanelView.class);
+        pico.as(Characteristics.CACHE).addComponent(NavPanelView.class);
+        pico.as(Characteristics.CACHE).addComponent(EditPanelView.class);
     }
 }

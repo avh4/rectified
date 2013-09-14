@@ -9,9 +9,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.pcollections.TreePVector;
 
-import java.util.Arrays;
-
+import static net.avh4.tools.rectified.test.support.Assertions.assertThat;
 import static org.mockito.Mockito.stub;
 import static org.mockito.Mockito.verify;
 
@@ -22,6 +22,7 @@ public class PlacementComponentTest {
     @Mock private Component c2;
     @Mock private Component c3;
     @Mock private Component c4;
+    @Mock private Component c9;
     @Mock private Rect bounds;
     @Mock private GraphicsOperations g;
     @Mock private FontMetricsService fm;
@@ -33,7 +34,9 @@ public class PlacementComponentTest {
         MockitoAnnotations.initMocks(this);
         stub(placement.place(bounds)).toReturn(placedBounds);
         stub(placement.remainder(bounds)).toReturn(remainderBounds);
-        subject = new PlacementComponent(placement, Arrays.asList(c1, c2), Arrays.asList(c3, c4));
+        final TreePVector<Component> components = TreePVector.singleton(c1).plus(c2);
+        final TreePVector<Component> remainderComponents = TreePVector.singleton(c3).plus(c4);
+        subject = new PlacementComponent(placement, components, remainderComponents);
     }
 
     @Test
@@ -54,5 +57,15 @@ public class PlacementComponentTest {
         subject.draw(bounds, g, fm);
         verify(c3).draw(remainderBounds, g, fm);
         verify(c4).draw(remainderBounds, g, fm);
+    }
+
+    @Test
+    public void swap_shouldUpdateComponent() throws Exception {
+        assertThat(subject.swap(c1, c9).components()).containsExactly(c9, c2);
+    }
+
+    @Test
+    public void swap_shouldUpdateRemainderComponent() throws Exception {
+        assertThat(subject.swap(c4, c9).remainderComponents()).containsExactly(c3, c9);
     }
 }

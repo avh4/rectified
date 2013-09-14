@@ -37,7 +37,6 @@
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit-dep:4.8.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: commons-codec:commons-codec:1.5" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: net.avh4.util:imagecomparison-swing:0.3.2" level="project" />
-    <orderEntry type="library" name="Maven: net.avh4.util:lisp-parser:0.0.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: net.avh4.test:junit-nested:1.0.1" level="project" />
   </component>
 </module>

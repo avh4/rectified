@@ -6,29 +6,6 @@ Simple, expressive, and programmer-friendly UI design
 
 ![Screenshot](screenshot.png)
 
-### List of components
-
-- `(color <color>)` a solid colored rectangle
-- `(image <filename>)` an image (png or jpg)
-- `(text <text> <font> <color> <padding>)` text (left-center-aligned)
-- `(placement <placement> (component...) (component...))` a container placed according to `placement`, the first list of components will be drawn inside the placement, and the second list will be drawn in the remaining space
-
-### List of color formats
-
-- `(rgb "#fff")` an RGB value with one digit for each channel
-- `(rgb "#ffffff")` an RGB value with two digits for each channel
-
-### List of font formats
-
-- `(font <pt>)` The default font ([Open Sans](http://www.google.com/fonts/specimen/Open+Sans)) of size `pt`
-
-### List of placements
-
-- `(top <dp>)` a region anchored to the inside top of its parent that fills the width and is `dp` tall
-- `(bottom <dp>)` a region anchored to the inside bottom of its parent that fills the width and is `dp` tall
-- `(left <dp>)` a region anchored to the inside left of its parent that fills the height and is `dp` wide
-- `(right <dp>)` a region anchored to the inside right of its parent that fills the height and is `dp` wide
-
 ## Build commands
 
 * [Mutation coverage](http://pitest.org/): `mvn clean test org.pitest:pitest-maven:mutationCoverage`
