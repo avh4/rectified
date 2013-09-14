@@ -36,6 +36,11 @@ public class PlacementComponent extends Group implements Component {
         }
     }
 
+    @Override public Group add(Component component) {
+        final PVector<Component> newComponents = components.plus(component);
+        return new PlacementComponent(placement, newComponents, remainderComponents);
+    }
+
     @Override protected Rect placedBoundsForChild(Rect rect, Component child) {
         if (components.contains(child)) {
             return placement.place(rect);

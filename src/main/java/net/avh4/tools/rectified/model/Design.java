@@ -1,44 +1,33 @@
 package net.avh4.tools.rectified.model;
 
-import com.google.common.collect.Iterables;
 import net.avh4.framework.uilayer.scene.FontMetricsService;
 import net.avh4.framework.uilayer.scene.GraphicsOperations;
 import net.avh4.math.geometry.Rect;
-import org.pcollections.PVector;
 
 public class Design {
-    private final PVector<Component> components;
+    private final Group mainComponent;
 
-    public Design(PVector<Component> components) {
-        this.components = components;
+    public Design(Group mainComponent) {
+        this.mainComponent = mainComponent;
     }
 
-    public PVector<Component> components() {
-        return components;
+    public Group mainComponent() {
+        return mainComponent;
     }
 
     public void draw(Rect bounds, GraphicsOperations g, FontMetricsService fm) {
-        for (Component component : components) {
-            component.draw(bounds, g, fm);
-        }
+        mainComponent.draw(bounds, g, fm);
     }
 
-    public Design swap(final Component oldComponent, final Component newComponent) {
-        int index = components.indexOf(oldComponent);
-        if (index == -1)
-            throw new IllegalArgumentException("Tried to swap a component that doesn't exist in the design: " + oldComponent);
-        final PVector<Component> newComponents = components.with(index, newComponent);
-        return new Design(newComponents);
-    }
-
-    public Design add(Component component) {
-        final PVector<Component> newComponents = components.plus(component);
-        return new Design(newComponents);
+    public Design swap(final Group oldComponent, final Group newComponent) {
+        if (!oldComponent.equals(mainComponent))
+            throw new IllegalArgumentException("Tried to swap a component that doesn't exist in the design: " + "\n  Current: " + mainComponent + "\n  Component to remove: " + oldComponent + "\n  New component: " + newComponent);
+        return new Design(newComponent);
     }
 
     @Override public String toString() {
         return "Design{" +
-                "components=" + Iterables.toString(components) +
+                "mainComponent=" + mainComponent +
                 '}';
     }
 
@@ -49,13 +38,14 @@ public class Design {
 
         Design design = (Design) o;
 
-        if (components != null ? !components.equals(design.components) : design.components != null) return false;
+        if (mainComponent != null ? !mainComponent.equals(design.mainComponent) : design.mainComponent != null)
+            return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        return components != null ? components.hashCode() : 0;
+        return mainComponent != null ? mainComponent.hashCode() : 0;
     }
 }

@@ -1,17 +1,17 @@
 package net.avh4.tools.rectified.uimodel;
 
 import net.avh4.tools.rectified.model.Component;
-import net.avh4.tools.rectified.model.Group;
 import net.avh4.tools.rectified.uimodel.cqrs.SelectionCommands;
 import net.avh4.tools.rectified.uimodel.cqrs.SelectionQuery;
 import net.avh4.util.Observable;
+import org.pcollections.PStack;
 
 public class MutableSelectionModel extends Observable<SelectionQuery> implements SelectionCommands {
     private SelectionQueryImpl selectionQuery;
 
-    @Override public void selectComponent(Group parent, Component component) {
-        System.out.println("Selected " + component);
-        selectionQuery = new SelectionQueryImpl(parent, component);
+    @Override public void selectComponent(PStack<Component> path) {
+        System.out.println("Selected " + path);
+        selectionQuery = new SelectionQueryImpl(path);
         notifyObservers();
     }
 
@@ -20,20 +20,18 @@ public class MutableSelectionModel extends Observable<SelectionQuery> implements
     }
 
     private static class SelectionQueryImpl implements SelectionQuery {
-        private final Group parentOfSelected;
-        private final Component selectedComponent;
+        private final PStack<Component> path;
 
-        public SelectionQueryImpl(Group parentOfSelected, Component selectedComponent) {
-            this.parentOfSelected = parentOfSelected;
-            this.selectedComponent = selectedComponent;
+        public SelectionQueryImpl(PStack<Component> path) {
+            this.path = path;
         }
 
         @Override public Component selectedComponent() {
-            return selectedComponent;
+            return path.get(0);
         }
 
-        @Override public Group parentOfSelected() {
-            return parentOfSelected;
+        @Override public PStack<Component> path() {
+            return path;
         }
     }
 }

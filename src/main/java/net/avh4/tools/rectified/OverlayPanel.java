@@ -5,14 +5,23 @@ import net.avh4.tools.rectified.model.Component;
 import net.avh4.tools.rectified.model.PlacementComponent;
 import net.avh4.tools.rectified.model.cqrs.DataCommands;
 import net.avh4.tools.rectified.model.placement.TopPlacement;
+import net.avh4.tools.rectified.uimodel.cqrs.SelectionQuery;
+import net.avh4.util.Observer;
+import org.pcollections.PStack;
 import org.pcollections.PVector;
 import org.pcollections.TreePVector;
 
 public class OverlayPanel {
     private final DataCommands dataCommands;
+    private PStack<Component> path;
 
-    public OverlayPanel(DataCommands dataCommands) {
+    public OverlayPanel(DataCommands dataCommands, Observables observables) {
         this.dataCommands = dataCommands;
+        observables.selection().watch(new Observer<SelectionQuery>() {
+            @Override public void update(SelectionQuery newValue) {
+                path = newValue.path();
+            }
+        });
     }
 
     public enum Edge {
@@ -30,7 +39,7 @@ public class OverlayPanel {
                 final TopPlacement placement = new TopPlacement(size_dp);
                 final PVector<Component> components = TreePVector.<Component>singleton(new ColorComponent(0xffeeeeee));
                 final PVector<Component> remainderComponents = TreePVector.empty();
-                dataCommands.add(new PlacementComponent(placement, components, remainderComponents));
+                dataCommands.add(path, new PlacementComponent(placement, components, remainderComponents));
             }
         };
     }

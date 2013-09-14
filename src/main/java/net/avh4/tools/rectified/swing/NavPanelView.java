@@ -10,6 +10,8 @@ import net.avh4.tools.rectified.Observables;
 import net.avh4.tools.rectified.model.Component;
 import net.avh4.tools.rectified.model.Design;
 import net.avh4.util.Observer;
+import org.pcollections.ConsPStack;
+import org.pcollections.PStack;
 import org.pcollections.PVector;
 import org.pcollections.TreePVector;
 
@@ -43,7 +45,7 @@ public class NavPanelView extends JPanel {
             @Override public void valueChanged(TreeSelectionEvent e) {
                 final Object node = e.getPath().getLastPathComponent();
                 if (node instanceof DesignTreeNode.ComponentTreeNode) {
-                    panel.actions().select(((DesignTreeNode.ComponentTreeNode) node).component);
+                    panel.actions().select(((DesignTreeNode.ComponentTreeNode) node).path);
                 } else {
                     System.out.println("Nothing to do: Selected " + node + "(" + node.getClass() + ")");
                 }
@@ -75,11 +77,13 @@ public class NavPanelView extends JPanel {
         }
 
         @Override public TreeNode getChildAt(int childIndex) {
-            return new ComponentTreeNode(design.components().get(childIndex), this);
+            PStack<Component> path = ConsPStack.<Component>singleton(design.mainComponent());
+            final Component component = design.mainComponent().children().get(childIndex);
+            return new ComponentTreeNode(component, path.plus(component), this);
         }
 
         @Override public int getChildCount() {
-            return design.components().size();
+            return design.mainComponent().children().size();
         }
 
         @Override public TreeNode getParent() {
@@ -87,7 +91,7 @@ public class NavPanelView extends JPanel {
         }
 
         @Override public int getIndex(TreeNode node) {
-            return design.components().indexOf(((ComponentTreeNode) node).component);
+            return design.mainComponent().children().indexOf(((ComponentTreeNode) node).component);
         }
 
         @Override public boolean getAllowsChildren() {
@@ -99,16 +103,18 @@ public class NavPanelView extends JPanel {
         }
 
         @Override public Enumeration children() {
-            return new PVectorEnumeration<>(design.components());
+            return new PVectorEnumeration<>(design.mainComponent().children());
         }
 
         private static class ComponentTreeNode extends DefaultMutableTreeNode {
             private final Component component;
+            private final PStack<Component> path;
             private final TreeNode parent;
             private final SwingGraphicsOperations graphicsOperations = new SwingGraphicsOperations();
 
-            public ComponentTreeNode(Component component, TreeNode parent) {
+            public ComponentTreeNode(Component component, PStack<Component> path, TreeNode parent) {
                 this.component = component;
+                this.path = path;
                 this.parent = parent;
             }
 

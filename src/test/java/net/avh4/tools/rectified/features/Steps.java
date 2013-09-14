@@ -8,6 +8,8 @@ import net.avh4.tools.rectified.*;
 import net.avh4.tools.rectified.model.Component;
 import net.avh4.tools.rectified.model.Group;
 import net.avh4.tools.rectified.model.cqrs.DataQuery;
+import org.pcollections.ConsPStack;
+import org.pcollections.PStack;
 import org.picocontainer.DefaultPicoContainer;
 import org.picocontainer.MutablePicoContainer;
 
@@ -39,20 +41,28 @@ public class Steps {
 
     @When("^I set the background color of the main region$")
     public void I_set_the_background_color_of_the_main_region() throws Throwable {
-        final Component component = dataQuery.design().components().get(0);
-        navPanel.actions().select(component);
+        selectComponent(0);
         editPanel.actions().setColor(0xffDC143C);
     }
 
     @When("^I add a constant-size region to the top$")
     public void I_add_a_constant_size_region_to_the_top() throws Throwable {
-        final Component component = dataQuery.design().components().get(0);
-        navPanel.actions().select(component);
+        selectComponent(0);
         editPanel.actions().setColor(0xffDC143C);
+        selectComponent(0);
         overlayPanel.actions().addPlacement(OverlayPanel.Edge.TOP, 48);
-        final Group parent = (Group) dataQuery.design().components().get(1);
-        navPanel.actions().select(parent, parent.children().get(0));
+        selectComponent(1, 0);
         editPanel.actions().setColor(0xff7171C6);
+    }
+
+    private void selectComponent(int... indexPath) {
+        Component last = dataQuery.design().mainComponent();
+        PStack<Component> path = ConsPStack.singleton(last);
+        for (int index : indexPath) {
+            last = ((Group) last).children().get(index);
+            path = path.plus(last);
+        }
+        navPanel.actions().select(path);
     }
 
     @Then("^I see the new background color in the preview$")

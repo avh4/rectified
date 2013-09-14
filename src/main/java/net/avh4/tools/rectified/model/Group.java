@@ -12,6 +12,8 @@ public abstract class Group implements Component {
 
     public abstract Group swap(Component oldComponent, Component newComponent);
 
+    public abstract Group add(Component component);
+
     @Override public void draw(Rect rect, GraphicsOperations g, FontMetricsService fm) {
         for (Component child : children()) {
             Rect placedBounds = placedBoundsForChild(rect, child);

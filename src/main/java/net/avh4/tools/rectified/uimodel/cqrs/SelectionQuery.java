@@ -1,10 +1,10 @@
 package net.avh4.tools.rectified.uimodel.cqrs;
 
 import net.avh4.tools.rectified.model.Component;
-import net.avh4.tools.rectified.model.Group;
+import org.pcollections.PStack;
 
 public interface SelectionQuery {
     Component selectedComponent();
 
-    Group parentOfSelected();
+    PStack<Component> path();
 }
