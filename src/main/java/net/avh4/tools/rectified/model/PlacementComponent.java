@@ -48,6 +48,10 @@ public class PlacementComponent extends Group implements Component {
         return components.plusAll(remainderComponents);
     }
 
+    @Override public String navString() {
+        return toString();
+    }
+
     @Override public String toString() {
         return "PlacementComponent{" +
                 "placement=" + placement +

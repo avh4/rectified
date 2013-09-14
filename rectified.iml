@@ -38,6 +38,8 @@
     <orderEntry type="library" scope="TEST" name="Maven: commons-codec:commons-codec:1.5" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: net.avh4.util:imagecomparison-swing:0.3.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: net.avh4.test:junit-nested:1.0.1" level="project" />
+    <orderEntry type="library" name="Maven: com.explodingpixels:mac_widgets:0.9.5" level="project" />
+    <orderEntry type="library" name="Maven: com.jgoodies:forms:1.2.1" level="project" />
   </component>
 </module>
 

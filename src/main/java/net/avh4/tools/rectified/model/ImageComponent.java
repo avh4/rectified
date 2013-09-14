@@ -21,6 +21,10 @@ public class ImageComponent implements Component {
         g.drawImage(image, bounds);
     }
 
+    @Override public String navString() {
+        return "Image (" + filename + ")";
+    }
+
     @Override public String toString() {
         return "ImageComponent{" +
                 "filename='" + filename + '\'' +

@@ -19,6 +19,10 @@ public class ColorComponent implements Component {
         g.drawRect(bounds, color);
     }
 
+    @Override public String navString() {
+        return "Color";
+    }
+
     @Override public String toString() {
         return "ColorComponent{" +
                 "color=0x" + Integer.toHexString(color) +

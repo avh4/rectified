@@ -1,15 +1,22 @@
 package net.avh4.tools.rectified.swing;
 
+import com.explodingpixels.macwidgets.SourceListDarkColorScheme;
+import com.explodingpixels.macwidgets.plaf.SourceListTreeUI;
+import com.explodingpixels.widgets.IconProvider;
+import net.avh4.framework.uilayer.swing.SwingGraphicsOperations;
+import net.avh4.math.geometry.Rect;
 import net.avh4.tools.rectified.NavPanel;
 import net.avh4.tools.rectified.Observables;
 import net.avh4.tools.rectified.model.Component;
 import net.avh4.tools.rectified.model.Design;
 import net.avh4.util.Observer;
 import org.pcollections.PVector;
+import org.pcollections.TreePVector;
 
 import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
 import java.awt.*;
@@ -20,7 +27,16 @@ public class NavPanelView extends JPanel {
 
     public NavPanelView(Observables observables, final NavPanel panel) {
         super(new BorderLayout());
-        tree = new JTree();
+        tree = new JTree() {
+            @Override protected void paintComponent(Graphics g) {
+                Graphics2D g2 = (Graphics2D) g;
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                super.paintComponent(g);
+            }
+        };
+        final SourceListTreeUI treeUI = new SourceListTreeUI();
+        tree.setUI(treeUI);
+        treeUI.setColorScheme(new SourceListDarkColorScheme());
         add(tree, BorderLayout.CENTER);
 
         tree.addTreeSelectionListener(new TreeSelectionListener() {
@@ -36,7 +52,8 @@ public class NavPanelView extends JPanel {
 
         observables.design().watch(new Observer<Design>() {
             @Override public void update(Design newValue) {
-                tree.setModel(new DefaultTreeModel(new DesignTreeNode(newValue)));
+                tree.setModel(new DefaultTreeModel(new RootTreeNode(newValue)));
+                tree.expandRow(0);
             }
         });
     }
@@ -82,12 +99,13 @@ public class NavPanelView extends JPanel {
         }
 
         @Override public Enumeration children() {
-            return new ComponentsEnumeration(design.components());
+            return new PVectorEnumeration<>(design.components());
         }
 
-        private static class ComponentTreeNode implements TreeNode {
+        private static class ComponentTreeNode extends DefaultMutableTreeNode {
             private final Component component;
             private final TreeNode parent;
+            private final SwingGraphicsOperations graphicsOperations = new SwingGraphicsOperations();
 
             public ComponentTreeNode(Component component, TreeNode parent) {
                 this.component = component;
@@ -95,7 +113,7 @@ public class NavPanelView extends JPanel {
             }
 
             @Override public String toString() {
-                return component.toString();
+                return component.navString();
             }
 
             @Override public TreeNode getChildAt(int childIndex) {
@@ -125,24 +143,81 @@ public class NavPanelView extends JPanel {
             @Override public Enumeration children() {
                 return null;
             }
+
+            @Override public Object getUserObject() {
+                return new IconProvider() {
+                    @Override public Icon getIcon() {
+                        return new Icon() {
+                            @Override public void paintIcon(java.awt.Component c, Graphics g, int x, int y) {
+                                graphicsOperations.setGraphicsContext(g);
+                                component.draw(Rect.fromTopLeft(x, y, getIconWidth(), getIconHeight()), graphicsOperations, null);
+                            }
+
+                            @Override public int getIconWidth() {
+                                return 16;
+                            }
+
+                            @Override public int getIconHeight() {
+                                return 16;
+                            }
+                        };
+                    }
+                };
+            }
+        }
+    }
+
+    private static class RootTreeNode implements TreeNode {
+        private Design design;
+
+        public RootTreeNode(Design newValue) {
+            design = newValue;
         }
 
-        private static class ComponentsEnumeration implements Enumeration {
-            private PVector<Component> components;
+        @Override public TreeNode getChildAt(int childIndex) {
+            return new DesignTreeNode(design);
+        }
 
-            public ComponentsEnumeration(PVector<Component> components) {
-                this.components = components;
-            }
+        @Override public int getChildCount() {
+            return 1;
+        }
 
-            @Override public boolean hasMoreElements() {
-                return !components.isEmpty();
-            }
+        @Override public TreeNode getParent() {
+            return null;
+        }
 
-            @Override public Object nextElement() {
-                final Component component = components.get(0);
-                components = components.minus(0);
-                return component;
-            }
+        @Override public int getIndex(TreeNode node) {
+            return 0;
+        }
+
+        @Override public boolean getAllowsChildren() {
+            return true;
+        }
+
+        @Override public boolean isLeaf() {
+            return false;
+        }
+
+        @Override public Enumeration children() {
+            return new PVectorEnumeration<>(TreePVector.singleton(design));
+        }
+    }
+
+    private static class PVectorEnumeration<T> implements Enumeration {
+        private PVector<T> components;
+
+        public PVectorEnumeration(PVector<T> components) {
+            this.components = components;
+        }
+
+        @Override public boolean hasMoreElements() {
+            return !components.isEmpty();
+        }
+
+        @Override public Object nextElement() {
+            final T component = components.get(0);
+            components = components.minus(0);
+            return component;
         }
     }
 }

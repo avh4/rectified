@@ -7,4 +7,6 @@ import net.avh4.math.geometry.Rect;
 
 public interface Component extends Element {
     void draw(Rect rect, GraphicsOperations g, FontMetricsService fm);
+
+    String navString();
 }

@@ -125,6 +125,11 @@
             <artifactId>pcollections</artifactId>
             <version>2.1.2</version>
         </dependency>
+        <dependency>
+            <groupId>com.explodingpixels</groupId>
+            <artifactId>mac_widgets</artifactId>
+            <version>0.9.5</version>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>

@@ -22,6 +22,10 @@ public class TextComponent implements Component {
         g.drawText(fm, value, rect.inset(padding), font, color);
     }
 
+    @Override public String navString() {
+        return "Text: “" + value + "”";
+    }
+
     @Override public String toString() {
         return "TextComponent{" +
                 "value='" + value + '\'' +
