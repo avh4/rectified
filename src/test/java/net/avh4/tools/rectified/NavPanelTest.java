@@ -2,7 +2,7 @@ package net.avh4.tools.rectified;
 
 import net.avh4.tools.rectified.model.Component;
 import net.avh4.tools.rectified.model.Design;
-import net.avh4.tools.rectified.model.placement.PlacementComponent;
+import net.avh4.tools.rectified.model.Group;
 import net.avh4.tools.rectified.uimodel.cqrs.SelectionCommands;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +20,7 @@ public class NavPanelTest {
     @Mock private Component c1;
     @Mock private Component c2;
     @Mock private SelectionCommands selectionCommands;
-    @Mock private PlacementComponent p1;
+    @Mock private Group p1;
 
     @Before
     public void setUp() throws Exception {
@@ -38,7 +38,7 @@ public class NavPanelTest {
     @Test
     public void select_childOfChild_shouldUpdateSelectionAndParent() throws Exception {
         stub(design.components()).toReturn(TreePVector.singleton(c1).plus(p1));
-        stub(p1.components()).toReturn(TreePVector.singleton(c2));
+        stub(p1.children()).toReturn(TreePVector.singleton(c2));
         subject.actions().select(p1, c2);
         verify(selectionCommands).selectComponent(p1, c2);
     }

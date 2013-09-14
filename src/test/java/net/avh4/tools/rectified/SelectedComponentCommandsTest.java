@@ -1,8 +1,8 @@
 package net.avh4.tools.rectified;
 
 import net.avh4.tools.rectified.model.Component;
+import net.avh4.tools.rectified.model.Group;
 import net.avh4.tools.rectified.model.cqrs.DataCommands;
-import net.avh4.tools.rectified.model.placement.PlacementComponent;
 import net.avh4.tools.rectified.uimodel.cqrs.SelectedComponentCommands;
 import net.avh4.tools.rectified.uimodel.cqrs.SelectionCommands;
 import net.avh4.tools.rectified.uimodel.cqrs.SelectionQuery;
@@ -22,7 +22,7 @@ public class SelectedComponentCommandsTest {
     @Mock private Component c1;
     @Mock private Component c2;
     @Mock private SelectionQuery selectionQuery;
-    @Mock private PlacementComponent parent;
+    @Mock private Group parent;
     @Mock private Observables observables;
     @Mock private SelectionCommands selectionCommands;
 

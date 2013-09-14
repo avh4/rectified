@@ -1,7 +1,7 @@
 package net.avh4.tools.rectified;
 
 import net.avh4.tools.rectified.model.Component;
-import net.avh4.tools.rectified.model.placement.PlacementComponent;
+import net.avh4.tools.rectified.model.Group;
 import net.avh4.tools.rectified.uimodel.cqrs.SelectionCommands;
 
 @Deprecated // collapse into Actions
@@ -20,9 +20,9 @@ public class NavPanel {
         return new Actions() {
             @Override public void select(Component... path) {
                 final int length = path.length;
-                PlacementComponent parent = null;
+                Group parent = null;
                 if (length >= 2) {
-                    parent = (PlacementComponent) path[length - 2];
+                    parent = (Group) path[length - 2];
                 }
                 selectionCommands.selectComponent(parent, path[length - 1]);
             }

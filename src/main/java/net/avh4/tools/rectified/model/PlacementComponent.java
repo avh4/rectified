@@ -1,12 +1,10 @@
-package net.avh4.tools.rectified.model.placement;
+package net.avh4.tools.rectified.model;
 
-import net.avh4.framework.uilayer.scene.FontMetricsService;
-import net.avh4.framework.uilayer.scene.GraphicsOperations;
 import net.avh4.math.geometry.Rect;
-import net.avh4.tools.rectified.model.Component;
+import net.avh4.tools.rectified.model.placement.Placement;
 import org.pcollections.PVector;
 
-public class PlacementComponent implements Component {
+public class PlacementComponent extends Group implements Component {
     private final Placement placement;
     private final PVector<Component> components;
     private final PVector<Component> remainderComponents;
@@ -25,17 +23,7 @@ public class PlacementComponent implements Component {
         return remainderComponents;
     }
 
-    @Override public void draw(Rect bounds, GraphicsOperations g, FontMetricsService fm) {
-        Rect placedBounds = placement.place(bounds);
-        for (Component component : components) {
-            component.draw(placedBounds, g, fm);
-        }
-        Rect remainderBounds = placement.remainder(bounds);
-        for (Component component : remainderComponents) {
-            component.draw(remainderBounds, g, fm);
-        }
-    }
-
+    @Override
     public PlacementComponent swap(Component oldComponent, Component newComponent) {
         if (components.contains(oldComponent)) {
             int index = components.indexOf(oldComponent);
@@ -46,6 +34,18 @@ public class PlacementComponent implements Component {
             PVector<Component> newComponents = remainderComponents.with(index, newComponent);
             return new PlacementComponent(placement, components, newComponents);
         }
+    }
+
+    @Override protected Rect placedBoundsForChild(Rect rect, Component child) {
+        if (components.contains(child)) {
+            return placement.place(rect);
+        } else {
+            return placement.remainder(rect);
+        }
+    }
+
+    @Override public PVector<Component> children() {
+        return components.plusAll(remainderComponents);
     }
 
     @Override public String toString() {

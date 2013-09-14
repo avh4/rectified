@@ -6,8 +6,8 @@ import cucumber.api.java.en.When;
 import net.avh4.framework.uilayer.swing.SwingSceneRenderer;
 import net.avh4.tools.rectified.*;
 import net.avh4.tools.rectified.model.Component;
+import net.avh4.tools.rectified.model.Group;
 import net.avh4.tools.rectified.model.cqrs.DataQuery;
-import net.avh4.tools.rectified.model.placement.PlacementComponent;
 import org.picocontainer.DefaultPicoContainer;
 import org.picocontainer.MutablePicoContainer;
 
@@ -50,8 +50,8 @@ public class Steps {
         navPanel.actions().select(component);
         editPanel.actions().setColor(0xffDC143C);
         overlayPanel.actions().addPlacement(OverlayPanel.Edge.TOP, 48);
-        final PlacementComponent parent = (PlacementComponent) dataQuery.design().components().get(1);
-        navPanel.actions().select(parent, parent.components().get(0));
+        final Group parent = (Group) dataQuery.design().components().get(1);
+        navPanel.actions().select(parent, parent.children().get(0));
         editPanel.actions().setColor(0xff7171C6);
     }
 

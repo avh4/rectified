@@ -1,7 +1,7 @@
 package net.avh4.tools.rectified;
 
 import net.avh4.tools.rectified.model.Component;
-import net.avh4.tools.rectified.model.placement.PlacementComponent;
+import net.avh4.tools.rectified.model.Group;
 import net.avh4.tools.rectified.uimodel.MutableSelectionModel;
 import net.avh4.tools.rectified.uimodel.cqrs.SelectionQuery;
 import net.avh4.util.Observer;
@@ -16,7 +16,7 @@ public class MutableSelectionModelTest {
 
     private MutableSelectionModel subject;
     @Mock private Component c1;
-    @Mock private PlacementComponent parent;
+    @Mock private Group parent;
 
     @Before
     public void setUp() throws Exception {

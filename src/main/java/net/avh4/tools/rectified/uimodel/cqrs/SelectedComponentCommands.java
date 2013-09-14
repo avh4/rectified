@@ -2,8 +2,8 @@ package net.avh4.tools.rectified.uimodel.cqrs;
 
 import net.avh4.tools.rectified.Observables;
 import net.avh4.tools.rectified.model.Component;
+import net.avh4.tools.rectified.model.Group;
 import net.avh4.tools.rectified.model.cqrs.DataCommands;
-import net.avh4.tools.rectified.model.placement.PlacementComponent;
 import net.avh4.util.Observer;
 
 public class SelectedComponentCommands {
@@ -23,7 +23,7 @@ public class SelectedComponentCommands {
 
     public void replaceSelected(Component newComponent) {
         final Component selectedComponent = selectionQuery.selectedComponent();
-        PlacementComponent parent = selectionQuery.parentOfSelected();
+        Group parent = selectionQuery.parentOfSelected();
         dataModel.replace(parent, selectedComponent, newComponent);
         selectionCommands.selectComponent(parent, newComponent);
     }

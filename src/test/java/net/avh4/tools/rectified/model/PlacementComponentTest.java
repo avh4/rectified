@@ -4,7 +4,6 @@ import net.avh4.framework.uilayer.scene.FontMetricsService;
 import net.avh4.framework.uilayer.scene.GraphicsOperations;
 import net.avh4.math.geometry.Rect;
 import net.avh4.tools.rectified.model.placement.Placement;
-import net.avh4.tools.rectified.model.placement.PlacementComponent;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;

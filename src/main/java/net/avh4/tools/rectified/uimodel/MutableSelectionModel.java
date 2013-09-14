@@ -1,7 +1,7 @@
 package net.avh4.tools.rectified.uimodel;
 
 import net.avh4.tools.rectified.model.Component;
-import net.avh4.tools.rectified.model.placement.PlacementComponent;
+import net.avh4.tools.rectified.model.Group;
 import net.avh4.tools.rectified.uimodel.cqrs.SelectionCommands;
 import net.avh4.tools.rectified.uimodel.cqrs.SelectionQuery;
 import net.avh4.util.Observable;
@@ -9,7 +9,7 @@ import net.avh4.util.Observable;
 public class MutableSelectionModel extends Observable<SelectionQuery> implements SelectionCommands {
     private SelectionQueryImpl selectionQuery;
 
-    @Override public void selectComponent(PlacementComponent parent, Component component) {
+    @Override public void selectComponent(Group parent, Component component) {
         System.out.println("Selected " + component);
         selectionQuery = new SelectionQueryImpl(parent, component);
         notifyObservers();
@@ -20,10 +20,10 @@ public class MutableSelectionModel extends Observable<SelectionQuery> implements
     }
 
     private static class SelectionQueryImpl implements SelectionQuery {
-        private final PlacementComponent parentOfSelected;
+        private final Group parentOfSelected;
         private final Component selectedComponent;
 
-        public SelectionQueryImpl(PlacementComponent parentOfSelected, Component selectedComponent) {
+        public SelectionQueryImpl(Group parentOfSelected, Component selectedComponent) {
             this.parentOfSelected = parentOfSelected;
             this.selectedComponent = selectedComponent;
         }
@@ -32,7 +32,7 @@ public class MutableSelectionModel extends Observable<SelectionQuery> implements
             return selectedComponent;
         }
 
-        @Override public PlacementComponent parentOfSelected() {
+        @Override public Group parentOfSelected() {
             return parentOfSelected;
         }
     }

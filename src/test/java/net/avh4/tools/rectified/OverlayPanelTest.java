@@ -2,8 +2,8 @@ package net.avh4.tools.rectified;
 
 import net.avh4.tools.rectified.model.ColorComponent;
 import net.avh4.tools.rectified.model.Component;
+import net.avh4.tools.rectified.model.PlacementComponent;
 import net.avh4.tools.rectified.model.cqrs.DataCommands;
-import net.avh4.tools.rectified.model.placement.PlacementComponent;
 import net.avh4.tools.rectified.model.placement.TopPlacement;
 import org.junit.Before;
 import org.junit.Test;

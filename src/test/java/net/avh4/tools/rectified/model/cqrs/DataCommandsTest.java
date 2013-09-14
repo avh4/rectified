@@ -2,8 +2,8 @@ package net.avh4.tools.rectified.model.cqrs;
 
 import net.avh4.tools.rectified.model.Component;
 import net.avh4.tools.rectified.model.Design;
+import net.avh4.tools.rectified.model.Group;
 import net.avh4.tools.rectified.model.MutableDataModel;
-import net.avh4.tools.rectified.model.placement.PlacementComponent;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -21,8 +21,8 @@ public class DataCommandsTest {
     @Mock private Component c1;
     @Mock private Component c2;
     @Mock private Component c9;
-    @Mock private PlacementComponent p1;
-    @Mock private PlacementComponent p1ʹ;
+    @Mock private Group p1;
+    @Mock private Group p1ʹ;
 
     @Before
     public void setUp() throws Exception {
