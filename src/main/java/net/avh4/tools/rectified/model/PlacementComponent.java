@@ -54,7 +54,7 @@ public class PlacementComponent extends Group implements Component {
     }
 
     @Override public String navString() {
-        return toString();
+        return placement.navString();
     }
 
     @Override public String toString() {

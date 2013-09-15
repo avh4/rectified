@@ -3,6 +3,7 @@ package net.avh4.tools.rectified.model;
 import net.avh4.framework.uilayer.Color;
 import net.avh4.tools.rectified.model.cqrs.DataCommands;
 import net.avh4.tools.rectified.model.cqrs.DataQuery;
+import net.avh4.tools.rectified.model.placement.TopPlacement;
 import net.avh4.util.Observable;
 import org.pcollections.PStack;
 import org.pcollections.TreePVector;
@@ -11,7 +12,8 @@ public class MutableDataModel extends Observable<Design> implements DataQuery, D
     private Design design;
 
     public MutableDataModel() {
-        Component background = new ColorComponent(Color.fromHSL(60, 0.5, 0.5));
+        Component background = new ColorComponent(Color.fromHSL(180, 0.5, 0.5));
+        Component header = new PlacementComponent(new TopPlacement(48), TreePVector.<Component>singleton(new ColorComponent(Color.fromHSL(15, 0.5, 0.5))), TreePVector.<Component>empty());
         Group mainComponent = new FullGroup(TreePVector.singleton(background));
         this.design = new Design(mainComponent);
     }

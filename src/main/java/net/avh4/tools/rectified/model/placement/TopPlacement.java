@@ -17,6 +17,10 @@ public class TopPlacement implements Placement {
         return bounds.bottom(bounds.height() - size);
     }
 
+    @Override public String navString() {
+        return "Top (" + size + "dp)";
+    }
+
     @Override public String toString() {
         return "TopPlacement{" +
                 "size=" + size +

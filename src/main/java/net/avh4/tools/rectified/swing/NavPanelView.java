@@ -9,6 +9,7 @@ import net.avh4.tools.rectified.NavPanel;
 import net.avh4.tools.rectified.Observables;
 import net.avh4.tools.rectified.model.Component;
 import net.avh4.tools.rectified.model.Design;
+import net.avh4.tools.rectified.model.Group;
 import net.avh4.util.Observer;
 import org.pcollections.ConsPStack;
 import org.pcollections.PStack;
@@ -123,11 +124,20 @@ public class NavPanelView extends JPanel {
             }
 
             @Override public TreeNode getChildAt(int childIndex) {
-                return null;
+                if (component instanceof Group) {
+                    Component child = ((Group) component).children().get(childIndex);
+                    return new ComponentTreeNode(child, path.plus(child), this);
+                } else {
+                    return null;
+                }
             }
 
             @Override public int getChildCount() {
-                return 0;
+                if (component instanceof Group) {
+                    return ((Group) component).children().size();
+                } else {
+                    return 0;
+                }
             }
 
             @Override public TreeNode getParent() {
@@ -135,19 +145,27 @@ public class NavPanelView extends JPanel {
             }
 
             @Override public int getIndex(TreeNode node) {
-                return 0;
+                if (component instanceof Group) {
+                    return ((Group) component).children().indexOf(((ComponentTreeNode) node).component);
+                } else {
+                    return 0;
+                }
             }
 
             @Override public boolean getAllowsChildren() {
-                return false;
+                return component instanceof Group;
             }
 
             @Override public boolean isLeaf() {
-                return true;
+                return !getAllowsChildren();
             }
 
             @Override public Enumeration children() {
-                return null;
+                if (component instanceof Group) {
+                    return new PVectorEnumeration<>(((Group) component).children());
+                } else {
+                    return null;
+                }
             }
 
             @Override public Object getUserObject() {

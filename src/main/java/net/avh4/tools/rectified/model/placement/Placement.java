@@ -6,4 +6,6 @@ public interface Placement {
     Rect place(Rect bounds);
 
     Rect remainder(Rect bounds);
+
+    String navString();
 }

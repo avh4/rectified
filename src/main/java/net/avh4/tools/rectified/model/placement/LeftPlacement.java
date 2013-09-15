@@ -17,6 +17,10 @@ public class LeftPlacement implements Placement {
         return bounds.right(bounds.width() - size);
     }
 
+    @Override public String navString() {
+        return "Left (" + size + "dp)";
+    }
+
     @Override public String toString() {
         return "LeftPlacement{" +
                 "size=" + size +
