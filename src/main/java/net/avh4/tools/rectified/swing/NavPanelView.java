@@ -27,10 +27,12 @@ import java.util.Enumeration;
 
 public class NavPanelView extends JPanel {
     private final JTree tree;
+    private DesignNavTreeModel model;
 
     public NavPanelView(Observables observables, final NavPanel panel) {
         super(new BorderLayout());
-        tree = new JTree() {
+        model = new DesignNavTreeModel();
+        tree = new JTree(model) {
             @Override protected void paintComponent(Graphics g) {
                 Graphics2D g2 = (Graphics2D) g;
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -55,8 +57,10 @@ public class NavPanelView extends JPanel {
 
         observables.design().watch(new Observer<Design>() {
             @Override public void update(Design newValue) {
-                tree.setModel(new DefaultTreeModel(new RootTreeNode(newValue)));
-                tree.expandRow(0);
+                model.setDesign(newValue);
+                model.reload();
+
+                for (int i = 0; i < tree.getRowCount(); i++) tree.expandRow(i);
             }
         });
     }
@@ -191,42 +195,6 @@ public class NavPanelView extends JPanel {
         }
     }
 
-    private static class RootTreeNode implements TreeNode {
-        private Design design;
-
-        public RootTreeNode(Design newValue) {
-            design = newValue;
-        }
-
-        @Override public TreeNode getChildAt(int childIndex) {
-            return new DesignTreeNode(design);
-        }
-
-        @Override public int getChildCount() {
-            return 1;
-        }
-
-        @Override public TreeNode getParent() {
-            return null;
-        }
-
-        @Override public int getIndex(TreeNode node) {
-            return 0;
-        }
-
-        @Override public boolean getAllowsChildren() {
-            return true;
-        }
-
-        @Override public boolean isLeaf() {
-            return false;
-        }
-
-        @Override public Enumeration children() {
-            return new PVectorEnumeration<>(TreePVector.singleton(design));
-        }
-    }
-
     private static class PVectorEnumeration<T> implements Enumeration {
         private PVector<T> components;
 
@@ -242,6 +210,49 @@ public class NavPanelView extends JPanel {
             final T component = components.get(0);
             components = components.minus(0);
             return component;
+        }
+    }
+
+    private static class DesignNavTreeModel extends DefaultTreeModel {
+        private Design design;
+
+        public DesignNavTreeModel() {
+            super(null);
+            setRoot(new RootTreeNode());
+        }
+
+        public void setDesign(Design design) {
+            this.design = design;
+        }
+
+        private class RootTreeNode implements TreeNode {
+            @Override public TreeNode getChildAt(int childIndex) {
+                return new DesignTreeNode(design);
+            }
+
+            @Override public int getChildCount() {
+                return 1;
+            }
+
+            @Override public TreeNode getParent() {
+                return null;
+            }
+
+            @Override public int getIndex(TreeNode node) {
+                return 0;
+            }
+
+            @Override public boolean getAllowsChildren() {
+                return true;
+            }
+
+            @Override public boolean isLeaf() {
+                return false;
+            }
+
+            @Override public Enumeration children() {
+                return new PVectorEnumeration<>(TreePVector.singleton(design));
+            }
         }
     }
 }
