@@ -10,7 +10,7 @@ public class FullGroup extends Group {
         this.components = components;
     }
 
-    @Override protected Rect placedBoundsForChild(Rect rect, Component child) {
+    @Override public Rect placedBoundsForChild(Rect rect, Component child) {
         return rect;
     }
 

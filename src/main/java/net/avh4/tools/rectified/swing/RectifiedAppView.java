@@ -7,11 +7,11 @@ import javax.swing.*;
 import java.awt.*;
 
 public class RectifiedAppView extends JFrame {
-    public RectifiedAppView(AppConfig config, DesignPanelView designPanel, NavPanelView navPanel, EditPanelView editPanel) throws HeadlessException {
+    public RectifiedAppView(AppConfig config, DesignPanelView designPanel, NavPanelView navPanel, OverlayPanelView overlayPanel, EditPanelView editPanel) throws HeadlessException {
         super(config.appName());
         this.setLayout(new BorderLayout());
         this.add(navPanel, BorderLayout.WEST);
-        this.add(new GradientStage(designPanel), BorderLayout.CENTER);
+        this.add(new GradientStage(designPanel, overlayPanel), BorderLayout.CENTER);
         this.add(editPanel, BorderLayout.EAST);
     }
 

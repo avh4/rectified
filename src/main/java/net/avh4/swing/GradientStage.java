@@ -8,10 +8,18 @@ public class GradientStage extends JPanel {
     public static final Color TOP_LEFT_COLOR = new Color(0xffffff);
     public static final Color BOTTOM_RIGHT_COLOR = new Color(0xcccccc);
 
-    public GradientStage(JComponent child) {
+    public GradientStage(JComponent... children) {
         super(new GridBagLayout());
         this.setBorder(BorderFactory.createEmptyBorder(PADDING, PADDING, PADDING, PADDING));
-        this.add(child);
+        final JLayeredPane layers = new JLayeredPane();
+        final Dimension size = children[0].getPreferredSize();
+        layers.setPreferredSize(size);
+        add(layers);
+        for (JComponent child : children) {
+            layers.add(child);
+            child.setBounds(0, 0, size.width, size.height);
+            layers.moveToFront(child);
+        }
     }
 
     @Override

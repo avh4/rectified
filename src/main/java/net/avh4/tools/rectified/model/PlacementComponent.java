@@ -41,7 +41,7 @@ public class PlacementComponent extends Group implements Component {
         return new PlacementComponent(placement, newComponents, remainderComponents);
     }
 
-    @Override protected Rect placedBoundsForChild(Rect rect, Component child) {
+    @Override public Rect placedBoundsForChild(Rect rect, Component child) {
         if (components.contains(child)) {
             return placement.place(rect);
         } else {

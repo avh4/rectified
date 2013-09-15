@@ -6,7 +6,7 @@ import net.avh4.math.geometry.Rect;
 import org.pcollections.PVector;
 
 public abstract class Group implements Component {
-    protected abstract Rect placedBoundsForChild(Rect rect, Component child);
+    public abstract Rect placedBoundsForChild(Rect rect, Component child);
 
     public abstract PVector<Component> children();
 
