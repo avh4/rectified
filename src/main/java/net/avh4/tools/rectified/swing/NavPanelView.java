@@ -3,6 +3,7 @@ package net.avh4.tools.rectified.swing;
 import com.explodingpixels.macwidgets.SourceListDarkColorScheme;
 import com.explodingpixels.macwidgets.plaf.SourceListTreeUI;
 import com.explodingpixels.widgets.IconProvider;
+import com.google.common.collect.ImmutableList;
 import net.avh4.framework.uilayer.swing.SwingGraphicsOperations;
 import net.avh4.math.geometry.Rect;
 import net.avh4.tools.rectified.NavPanel;
@@ -10,6 +11,7 @@ import net.avh4.tools.rectified.Observables;
 import net.avh4.tools.rectified.model.Component;
 import net.avh4.tools.rectified.model.Design;
 import net.avh4.tools.rectified.model.Group;
+import net.avh4.tools.rectified.uimodel.cqrs.SelectionQuery;
 import net.avh4.util.Observer;
 import org.pcollections.ConsPStack;
 import org.pcollections.PStack;
@@ -22,12 +24,14 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
 import java.awt.*;
 import java.util.Enumeration;
 
 public class NavPanelView extends JPanel {
     private final JTree tree;
     private DesignNavTreeModel model;
+    private boolean selecting;
 
     public NavPanelView(Observables observables, final NavPanel panel) {
         super(new BorderLayout());
@@ -46,6 +50,7 @@ public class NavPanelView extends JPanel {
 
         tree.addTreeSelectionListener(new TreeSelectionListener() {
             @Override public void valueChanged(TreeSelectionEvent e) {
+                if (selecting) return;
                 final Object node = e.getPath().getLastPathComponent();
                 if (node instanceof DesignTreeNode.ComponentTreeNode) {
                     panel.actions().select(((DesignTreeNode.ComponentTreeNode) node).path);
@@ -60,6 +65,27 @@ public class NavPanelView extends JPanel {
                 model.setDesign(newValue);
                 model.reload();
 
+                for (int i = 0; i < tree.getRowCount(); i++) tree.expandRow(i);
+            }
+        });
+
+        observables.selection().watch(new Observer<SelectionQuery>() {
+            @Override public void update(SelectionQuery newValue) {
+                final ImmutableList<Component> reversed = ImmutableList.copyOf(newValue.path()).reverse();
+                TreeNode last = (TreeNode) model.getRoot();
+                TreePath treePath = new TreePath(last);
+                Group parent = null;
+                int index;
+                for (Component component : reversed) {
+                    if (parent == null) index = 0;
+                    else index = parent.children().indexOf(component);
+                    last = last.getChildAt(index);
+                    treePath = treePath.pathByAddingChild(last);
+                    parent = component instanceof Group ? (Group) component : null;
+                }
+                selecting = true;
+                tree.setSelectionPath(treePath);
+                selecting = false;
                 for (int i = 0; i < tree.getRowCount(); i++) tree.expandRow(i);
             }
         });

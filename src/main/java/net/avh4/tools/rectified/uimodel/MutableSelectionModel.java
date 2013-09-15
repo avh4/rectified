@@ -10,7 +10,6 @@ public class MutableSelectionModel extends Observable<SelectionQuery> implements
     private SelectionQueryImpl selectionQuery;
 
     @Override public void selectComponent(PStack<Component> path) {
-        System.out.println("Selected " + path);
         selectionQuery = new SelectionQueryImpl(path);
         notifyObservers();
     }
