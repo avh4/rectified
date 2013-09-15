@@ -5,7 +5,7 @@ import org.pcollections.PStack;
 
 public interface DataCommands {
 
-    void replace(PStack<Component> path, Component newComponent);
+    PStack<Component> replace(PStack<Component> path, Component newComponent);
 
     void add(PStack<Component> path, Component component);
 }

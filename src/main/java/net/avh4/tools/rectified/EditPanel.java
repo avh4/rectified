@@ -1,20 +1,20 @@
 package net.avh4.tools.rectified;
 
 import net.avh4.tools.rectified.model.ColorComponent;
-import net.avh4.tools.rectified.model.cqrs.DataCommands;
+import net.avh4.tools.rectified.uimodel.cqrs.AppCommands;
 import net.avh4.tools.rectified.uimodel.cqrs.SelectionQuery;
 import net.avh4.util.Observer;
 
 @Deprecated // collapse with Actions
 public class EditPanel {
-    private DataCommands dataCommands;
+    private AppCommands dataCommands;
     private SelectionQuery selectionQuery;
 
     public interface Actions {
         void setColor(int color);
     }
 
-    public EditPanel(DataCommands dataCommands, Observables observables) {
+    public EditPanel(AppCommands dataCommands, Observables observables) {
         this.dataCommands = dataCommands;
         observables.selection().watch(new Observer<SelectionQuery>() {
             @Override public void update(SelectionQuery newValue) {

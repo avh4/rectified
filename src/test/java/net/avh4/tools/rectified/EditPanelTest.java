@@ -2,7 +2,7 @@ package net.avh4.tools.rectified;
 
 import net.avh4.tools.rectified.model.ColorComponent;
 import net.avh4.tools.rectified.model.Component;
-import net.avh4.tools.rectified.model.cqrs.DataCommands;
+import net.avh4.tools.rectified.uimodel.cqrs.AppCommands;
 import net.avh4.tools.rectified.uimodel.cqrs.SelectionQuery;
 import net.avh4.util.ConstantObservable;
 import org.junit.Before;
@@ -17,7 +17,7 @@ import static org.mockito.Mockito.verify;
 public class EditPanelTest {
 
     private EditPanel subject;
-    @Mock private DataCommands dataCommands;
+    @Mock private AppCommands appCommands;
     @Mock private Observables observables;
     @Mock private SelectionQuery selectionQuery;
     @Mock private PStack<Component> path;
@@ -27,12 +27,12 @@ public class EditPanelTest {
         MockitoAnnotations.initMocks(this);
         stub(observables.selection()).toReturn(new ConstantObservable<>(selectionQuery));
         stub(selectionQuery.path()).toReturn(path);
-        subject = new EditPanel(dataCommands, observables);
+        subject = new EditPanel(appCommands, observables);
     }
 
     @Test
     public void setColor_shouldUpdate() throws Exception {
         subject.actions().setColor(0x456456);
-        verify(dataCommands).replace(path, new ColorComponent(0x456456));
+        verify(appCommands).replace(path, new ColorComponent(0x456456));
     }
 }

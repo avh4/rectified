@@ -5,11 +5,12 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import net.avh4.framework.uilayer.swing.SwingSceneRenderer;
 import net.avh4.tools.rectified.*;
+import net.avh4.tools.rectified.model.*;
 import net.avh4.tools.rectified.model.Component;
-import net.avh4.tools.rectified.model.Group;
 import net.avh4.tools.rectified.model.cqrs.DataQuery;
 import org.pcollections.ConsPStack;
 import org.pcollections.PStack;
+import org.pcollections.TreePVector;
 import org.picocontainer.DefaultPicoContainer;
 import org.picocontainer.MutablePicoContainer;
 
@@ -32,11 +33,19 @@ public class Steps {
     public void a_new_project() throws Throwable {
         MutablePicoContainer pico = new DefaultPicoContainer();
         ApplicationModule.configure(pico);
+        pico.removeComponent(MutableDataModel.class);
+        pico.addComponent(new MutableDataModel(createEmptyDesign()));
         navPanel = pico.getComponent(NavPanel.class);
         designPanel = pico.getComponent(DesignPanel.class);
         overlayPanel = pico.getComponent(OverlayPanel.class);
         editPanel = pico.getComponent(EditPanel.class);
         dataQuery = pico.getComponent(DataQuery.class);
+    }
+
+    private Design createEmptyDesign() {
+        Component background = new ColorComponent(net.avh4.framework.uilayer.Color.fromHSL(180, 0.5, 0.5));
+        Group mainComponent = new FullGroup(TreePVector.singleton(background));
+        return new Design(mainComponent);
     }
 
     @When("^I set the background color of the main region$")
