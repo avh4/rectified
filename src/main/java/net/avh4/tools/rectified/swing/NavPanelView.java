@@ -48,6 +48,10 @@ public class NavPanelView extends JPanel {
         treeUI.setColorScheme(new SourceListDarkColorScheme());
         add(tree, BorderLayout.CENTER);
 
+        JPanel buttonBar = new JPanel();
+        buttonBar.add(new JButton("-"));
+        add(buttonBar, BorderLayout.SOUTH);
+
         tree.addTreeSelectionListener(new TreeSelectionListener() {
             @Override public void valueChanged(TreeSelectionEvent e) {
                 if (selecting) return;

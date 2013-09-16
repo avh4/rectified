@@ -14,6 +14,7 @@ public class ApplicationModule {
         pico.as(Characteristics.CACHE).addComponent(NavPanel.class);
         pico.as(Characteristics.CACHE).addComponent(EditPanel.class);
         pico.as(Characteristics.CACHE).addComponent(OverlayPanel.class);
+        pico.as(Characteristics.CACHE).addComponent(InteractPanel.class);
         pico.as(Characteristics.CACHE).addComponent(AppConfig.class);
         pico.as(Characteristics.CACHE).addComponent(MutableSelectionModel.class);
         pico.as(Characteristics.CACHE).addComponent(MutableDataModel.class);

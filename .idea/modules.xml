@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../geometry/geometry.iml" filepath="$PROJECT_DIR$/../geometry/geometry.iml" />
       <module fileurl="file://$PROJECT_DIR$/rectified.iml" filepath="$PROJECT_DIR$/rectified.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../uilayer/uilayer.iml" filepath="$PROJECT_DIR$/../uilayer/uilayer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../uilayer/uilayer-core/uilayer-core.iml" filepath="$PROJECT_DIR$/../uilayer/uilayer-core/uilayer-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../uilayer/uilayer-examples/uilayer-examples.iml" filepath="$PROJECT_DIR$/../uilayer/uilayer-examples/uilayer-examples.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../uilayer/uilayer-swing/uilayer-swing.iml" filepath="$PROJECT_DIR$/../uilayer/uilayer-swing/uilayer-swing.iml" />
     </modules>
   </component>
 </project>

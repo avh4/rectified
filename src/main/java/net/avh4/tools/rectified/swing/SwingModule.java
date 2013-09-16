@@ -10,5 +10,6 @@ public class SwingModule {
         pico.as(Characteristics.CACHE).addComponent(NavPanelView.class);
         pico.as(Characteristics.CACHE).addComponent(EditPanelView.class);
         pico.as(Characteristics.CACHE).addComponent(OverlayPanelView.class);
+        pico.as(Characteristics.CACHE).addComponent(InteractPanelView.class);
     }
 }

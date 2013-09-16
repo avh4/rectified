@@ -22,11 +22,20 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
+        <module name="geometry" />
         <module name="rectified" />
+        <module name="uilayer-core" />
+        <module name="uilayer-examples" />
+        <module name="uilayer-swing" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="geometry" target="1.7" />
       <module name="rectified" target="1.7" />
+      <module name="uilayer" target="1.6" />
+      <module name="uilayer-core" target="1.6" />
+      <module name="uilayer-examples" target="1.6" />
+      <module name="uilayer-swing" target="1.6" />
     </bytecodeTargetLevel>
   </component>
 </project>

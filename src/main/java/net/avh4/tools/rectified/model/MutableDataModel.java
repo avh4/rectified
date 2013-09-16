@@ -57,12 +57,12 @@ public class MutableDataModel extends Observable<Design> implements DataQuery, D
         return ConsPStack.from(newPath);
     }
 
-    @Override public void add(PStack<Component> path, Component component) {
+    @Override public PStack<Component> add(PStack<Component> path, Component component) {
         path = findNearestGroup(path);
 
         Group parent = (Group) path.get(0);
         final Group newParent = parent.add(component);
-        replace(path, newParent);
+        return replace(path, newParent);
     }
 
     private PStack<Component> findNearestGroup(PStack<Component> path) {

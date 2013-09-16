@@ -8,6 +8,10 @@
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/../uilayer/uilayer-core/pom.xml" />
+        <option value="$PROJECT_DIR$/../uilayer/uilayer-swing/pom.xml" />
+        <option value="$PROJECT_DIR$/../uilayer/pom.xml" />
+        <option value="$PROJECT_DIR$/../geometry/pom.xml" />
       </list>
     </option>
   </component>

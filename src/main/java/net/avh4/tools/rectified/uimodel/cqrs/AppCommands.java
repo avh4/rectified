@@ -17,4 +17,9 @@ public class AppCommands {
         final PStack<Component> newPath = dataCommands.replace(path, newComponent);
         selectionCommands.selectComponent(newPath);
     }
+
+    public void add(PStack<Component> path, Component component) {
+        final PStack<Component> newPath = dataCommands.add(path, component);
+        selectionCommands.selectComponent(newPath);
+    }
 }

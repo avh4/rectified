@@ -7,5 +7,5 @@ public interface DataCommands {
 
     PStack<Component> replace(PStack<Component> path, Component newComponent);
 
-    void add(PStack<Component> path, Component component);
+    PStack<Component> add(PStack<Component> path, Component component);
 }
