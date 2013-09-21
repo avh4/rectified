@@ -3,12 +3,12 @@ package net.avh4.tools.rectified.uimodel;
 import net.avh4.math.geometry.Rect;
 import net.avh4.tools.rectified.model.Component;
 import net.avh4.tools.rectified.model.Group;
+import net.avh4.framework.uilayer.mvc.Channel;
 import net.avh4.tools.rectified.uimodel.cqrs.SelectionCommands;
 import net.avh4.tools.rectified.uimodel.cqrs.SelectionQuery;
-import net.avh4.util.Observable;
 import org.pcollections.PStack;
 
-public class MutableSelectionModel extends Observable<SelectionQuery> implements SelectionCommands {
+public class MutableSelectionModel extends Channel<SelectionQuery> implements SelectionCommands {
     private SelectionQueryImpl selectionQuery;
 
     @Override public void selectComponent(PStack<Component> path) {
@@ -31,7 +31,7 @@ public class MutableSelectionModel extends Observable<SelectionQuery> implements
         return selectedBounds;
     }
 
-    @Override protected SelectionQuery getObservedValue() {
+    @Override public SelectionQuery get() {
         return selectionQuery;
     }
 

@@ -1,10 +1,11 @@
 package net.avh4.tools.rectified;
 
+import net.avh4.framework.uilayer.mvc.ConstantChannel;
 import net.avh4.framework.uilayer.scene.FontMetricsService;
 import net.avh4.framework.uilayer.scene.GraphicsOperations;
 import net.avh4.math.geometry.Rect;
 import net.avh4.tools.rectified.model.Design;
-import net.avh4.util.test.FakeObservable;
+import net.avh4.util.test.FakeChannel;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -20,16 +21,13 @@ public class DesignPanelTest {
     @Mock private FontMetricsService fm;
 
     @Mock private Design design;
-    private FakeObservable designObservable;
     @Mock private Observables observables;
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        designObservable = new FakeObservable();
-        stub(observables.design()).toReturn(designObservable);
+        stub(observables.design()).toReturn(new ConstantChannel<>(design));
         subject = new DesignPanel(observables);
-        designObservable.observer.update(design);
     }
 
     @Test

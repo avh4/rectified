@@ -5,23 +5,26 @@ import net.avh4.tools.rectified.model.Component;
 import net.avh4.tools.rectified.model.PlacementComponent;
 import net.avh4.tools.rectified.model.cqrs.DataCommands;
 import net.avh4.tools.rectified.model.placement.TopPlacement;
+import net.avh4.framework.uilayer.mvc.Channel;
 import net.avh4.tools.rectified.uimodel.cqrs.SelectionQuery;
-import net.avh4.util.Observer;
+import net.avh4.framework.uilayer.mvc.Observer;
 import org.pcollections.PStack;
 import org.pcollections.PVector;
 import org.pcollections.TreePVector;
 
-public class OverlayPanel {
+public class OverlayPanel implements Observer {
     private final DataCommands dataCommands;
+    private final Channel<SelectionQuery> selection;
     private PStack<Component> path;
 
     public OverlayPanel(DataCommands dataCommands, Observables observables) {
         this.dataCommands = dataCommands;
-        observables.selection().watch(new Observer<SelectionQuery>() {
-            @Override public void update(SelectionQuery newValue) {
-                path = newValue.path();
-            }
-        });
+        selection = observables.selection();
+        observables.selection().watch(this);
+    }
+
+    @Override public void update() {
+        path = selection.get().path();
     }
 
     public enum Edge {

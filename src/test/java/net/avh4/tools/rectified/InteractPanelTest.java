@@ -6,7 +6,7 @@ import net.avh4.framework.uilayer.scene.GraphicsOperations;
 import net.avh4.math.geometry.Rect;
 import net.avh4.tools.rectified.uimodel.cqrs.AppCommands;
 import net.avh4.tools.rectified.uimodel.cqrs.SelectionQuery;
-import net.avh4.util.ConstantObservable;
+import net.avh4.framework.uilayer.mvc.ConstantChannel;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -31,7 +31,7 @@ public class InteractPanelTest {
         MockitoAnnotations.initMocks(this);
         bounds = Rect.ofSize(100, 100);
         selection = bounds.top(20);
-        stub(observables.selection()).toReturn(new ConstantObservable<>(selectionQuery));
+        stub(observables.selection()).toReturn(new ConstantChannel<>(selectionQuery));
         stub(selectionQuery.selectionBounds()).toReturn(selection);
         subject = new InteractPanel(observables, appCommands);
     }

@@ -6,7 +6,7 @@ import net.avh4.tools.rectified.model.PlacementComponent;
 import net.avh4.tools.rectified.model.cqrs.DataCommands;
 import net.avh4.tools.rectified.model.placement.TopPlacement;
 import net.avh4.tools.rectified.uimodel.cqrs.SelectionQuery;
-import net.avh4.util.ConstantObservable;
+import net.avh4.framework.uilayer.mvc.ConstantChannel;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -28,7 +28,7 @@ public class OverlayPanelTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        stub(observables.selection()).toReturn(new ConstantObservable<>(selectionQuery));
+        stub(observables.selection()).toReturn(new ConstantChannel<>(selectionQuery));
         stub(selectionQuery.path()).toReturn(path);
         subject = new OverlayPanel(dataCommands, observables);
     }

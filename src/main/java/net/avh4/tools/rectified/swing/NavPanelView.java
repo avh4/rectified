@@ -12,7 +12,8 @@ import net.avh4.tools.rectified.model.Component;
 import net.avh4.tools.rectified.model.Design;
 import net.avh4.tools.rectified.model.Group;
 import net.avh4.tools.rectified.uimodel.cqrs.SelectionQuery;
-import net.avh4.util.Observer;
+import net.avh4.framework.uilayer.mvc.Channel;
+import net.avh4.framework.uilayer.mvc.Observer;
 import org.pcollections.ConsPStack;
 import org.pcollections.PStack;
 import org.pcollections.PVector;
@@ -28,8 +29,10 @@ import javax.swing.tree.TreePath;
 import java.awt.*;
 import java.util.Enumeration;
 
-public class NavPanelView extends JPanel {
+public class NavPanelView extends JPanel implements Observer {
     private final JTree tree;
+    private final Channel<Design> design;
+    private final Channel<SelectionQuery> selection;
     private DesignNavTreeModel model;
     private boolean selecting;
 
@@ -64,35 +67,35 @@ public class NavPanelView extends JPanel {
             }
         });
 
-        observables.design().watch(new Observer<Design>() {
-            @Override public void update(Design newValue) {
-                model.setDesign(newValue);
-                model.reload();
+        design = observables.design();
+        selection = observables.selection();
+        observables.design().watch(this);
+        observables.selection().watch(this);
+    }
 
-                for (int i = 0; i < tree.getRowCount(); i++) tree.expandRow(i);
-            }
-        });
+    @Override public void update() {
+        model.setDesign(design.get());
+        model.reload();
 
-        observables.selection().watch(new Observer<SelectionQuery>() {
-            @Override public void update(SelectionQuery newValue) {
-                final ImmutableList<Component> reversed = ImmutableList.copyOf(newValue.path()).reverse();
-                TreeNode last = (TreeNode) model.getRoot();
-                TreePath treePath = new TreePath(last);
-                Group parent = null;
-                int index;
-                for (Component component : reversed) {
-                    if (parent == null) index = 0;
-                    else index = parent.children().indexOf(component);
-                    last = last.getChildAt(index);
-                    treePath = treePath.pathByAddingChild(last);
-                    parent = component instanceof Group ? (Group) component : null;
-                }
-                selecting = true;
-                tree.setSelectionPath(treePath);
-                selecting = false;
-                for (int i = 0; i < tree.getRowCount(); i++) tree.expandRow(i);
-            }
-        });
+        for (int i = 0; i < tree.getRowCount(); i++) tree.expandRow(i);
+
+        if (selection.get() == null) return;
+        final ImmutableList<Component> reversed = ImmutableList.copyOf(selection.get().path()).reverse();
+        TreeNode last = (TreeNode) model.getRoot();
+        TreePath treePath = new TreePath(last);
+        Group parent = null;
+        int index;
+        for (Component component : reversed) {
+            if (parent == null) index = 0;
+            else index = parent.children().indexOf(component);
+            last = last.getChildAt(index);
+            treePath = treePath.pathByAddingChild(last);
+            parent = component instanceof Group ? (Group) component : null;
+        }
+        selecting = true;
+        tree.setSelectionPath(treePath);
+        selecting = false;
+        for (int i = 0; i < tree.getRowCount(); i++) tree.expandRow(i);
     }
 
     @Override public Dimension getPreferredSize() {

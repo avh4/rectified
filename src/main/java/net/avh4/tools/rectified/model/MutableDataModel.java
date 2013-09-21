@@ -4,13 +4,13 @@ import net.avh4.framework.uilayer.Color;
 import net.avh4.tools.rectified.model.cqrs.DataCommands;
 import net.avh4.tools.rectified.model.cqrs.DataQuery;
 import net.avh4.tools.rectified.model.placement.TopPlacement;
-import net.avh4.util.Observable;
+import net.avh4.framework.uilayer.mvc.Channel;
 import org.pcollections.ConsPStack;
 import org.pcollections.PStack;
 import org.pcollections.PVector;
 import org.pcollections.TreePVector;
 
-public class MutableDataModel extends Observable<Design> implements DataQuery, DataCommands {
+public class MutableDataModel extends Channel<Design> implements DataQuery, DataCommands {
     private Design design;
 
     public MutableDataModel() {
@@ -24,7 +24,7 @@ public class MutableDataModel extends Observable<Design> implements DataQuery, D
         this.design = design;
     }
 
-    @Override protected Design getObservedValue() {
+    @Override public Design get() {
         return design;
     }
 

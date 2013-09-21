@@ -7,16 +7,16 @@ import net.avh4.framework.uilayer.scene.FontMetricsService;
 import net.avh4.framework.uilayer.scene.GraphicsOperations;
 import net.avh4.math.geometry.Rect;
 import net.avh4.tools.rectified.model.Design;
-import net.avh4.util.Observer;
+import net.avh4.framework.uilayer.mvc.Observer;
 
 
 public class DesignPanel implements Element {
     private Design design;
 
-    public DesignPanel(Observables observables) {
-        observables.design().watch(new Observer<Design>() {
-            public void update(Design value) {
-                design = value;
+    public DesignPanel(final Observables observables) {
+        observables.design().watch(new Observer() {
+            public void update() {
+                design = observables.design().get();
             }
         });
     }

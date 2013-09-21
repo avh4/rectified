@@ -1,6 +1,6 @@
 package net.avh4.tools.rectified.model;
 
-import net.avh4.util.Observer;
+import net.avh4.framework.uilayer.mvc.Observer;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -9,6 +9,7 @@ import org.pcollections.ConsPStack;
 import org.pcollections.PStack;
 
 import static net.avh4.tools.rectified.test.support.Assertions.assertThat;
+import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.stub;
 import static org.mockito.Mockito.verify;
 
@@ -16,7 +17,7 @@ public class MutableDataModelTest {
 
     private MutableDataModel subject;
     @Mock private Design design2;
-    @Mock private Observer<Design> observer;
+    @Mock private Observer observer;
     @Mock private Component c1;
     @Mock private Component c1ʹ;
     @Mock private Component c2;
@@ -74,8 +75,9 @@ public class MutableDataModelTest {
     @Test
     public void replace_shouldNotifyObservers() throws Exception {
         subject.watch(observer);
+        reset(observer);
         subject.replace(path_p1c1, c1ʹ);
-        verify(observer).update(design_p1ʹc1ʹ);
+        verify(observer).update();
     }
 
     @Test

@@ -4,22 +4,22 @@ import net.avh4.tools.rectified.model.Design;
 import net.avh4.tools.rectified.model.MutableDataModel;
 import net.avh4.tools.rectified.uimodel.MutableSelectionModel;
 import net.avh4.tools.rectified.uimodel.cqrs.SelectionQuery;
-import net.avh4.util.Observable;
+import net.avh4.framework.uilayer.mvc.Channel;
 
 public class Observables {
-    private final Observable<Design> design;
-    private final Observable<SelectionQuery> selection;
+    private final Channel<Design> design;
+    private final Channel<SelectionQuery> selection;
 
     public Observables(MutableDataModel design, MutableSelectionModel selection) {
         this.design = design;
         this.selection = selection;
     }
 
-    public Observable<Design> design() {
+    public Channel<Design> design() {
         return design;
     }
 
-    public Observable<SelectionQuery> selection() {
+    public Channel<SelectionQuery> selection() {
         return selection;
     }
 }

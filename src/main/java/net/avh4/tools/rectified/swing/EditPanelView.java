@@ -5,18 +5,21 @@ import net.avh4.tools.rectified.Observables;
 import net.avh4.tools.rectified.model.ColorComponent;
 import net.avh4.tools.rectified.model.Component;
 import net.avh4.tools.rectified.uimodel.cqrs.SelectionQuery;
-import net.avh4.util.Observer;
+import net.avh4.framework.uilayer.mvc.Channel;
+import net.avh4.framework.uilayer.mvc.Observer;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 
-public class EditPanelView extends JPanel {
+public class EditPanelView extends JPanel implements Observer {
+    private final Channel<SelectionQuery> selection;
     private boolean changing;
+    private final JColorChooser chooser;
 
     public EditPanelView(Observables observables, final EditPanel panel) {
-        final JColorChooser chooser = new JColorChooser(Color.BLUE);
+        chooser = new JColorChooser(Color.BLUE);
         add(chooser);
 
         chooser.getSelectionModel().addChangeListener(new ChangeListener() {
@@ -27,19 +30,20 @@ public class EditPanelView extends JPanel {
             }
         });
 
-        observables.selection().watch(new Observer<SelectionQuery>() {
-            @Override public void update(SelectionQuery newValue) {
-                final Component component = newValue.selectedComponent();
-                if (component instanceof ColorComponent) {
-                    changing = true;
-                    chooser.setColor(((ColorComponent) component).color());
-                    changing = false;
-                    chooser.setVisible(true);
-                } else {
-                    chooser.setVisible(false);
-                }
-            }
-        });
+        selection = observables.selection();
+        observables.selection().watch(this);
+    }
+
+    @Override public void update() {
+        final Component component = selection.get().selectedComponent();
+        if (component instanceof ColorComponent) {
+            changing = true;
+            chooser.setColor(((ColorComponent) component).color());
+            changing = false;
+            chooser.setVisible(true);
+        } else {
+            chooser.setVisible(false);
+        }
     }
 
     @Override public Dimension getPreferredSize() {

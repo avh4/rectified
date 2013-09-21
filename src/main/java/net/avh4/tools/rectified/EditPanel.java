@@ -1,12 +1,14 @@
 package net.avh4.tools.rectified;
 
 import net.avh4.tools.rectified.model.ColorComponent;
+import net.avh4.framework.uilayer.mvc.Channel;
 import net.avh4.tools.rectified.uimodel.cqrs.AppCommands;
 import net.avh4.tools.rectified.uimodel.cqrs.SelectionQuery;
-import net.avh4.util.Observer;
+import net.avh4.framework.uilayer.mvc.Observer;
 
 @Deprecated // collapse with Actions
-public class EditPanel {
+public class EditPanel implements Observer {
+    private final Channel<SelectionQuery> selection;
     private AppCommands dataCommands;
     private SelectionQuery selectionQuery;
 
@@ -16,11 +18,12 @@ public class EditPanel {
 
     public EditPanel(AppCommands dataCommands, Observables observables) {
         this.dataCommands = dataCommands;
-        observables.selection().watch(new Observer<SelectionQuery>() {
-            @Override public void update(SelectionQuery newValue) {
-                selectionQuery = newValue;
-            }
-        });
+        selection = observables.selection();
+        observables.selection().watch(this);
+    }
+
+    @Override public void update() {
+        selectionQuery = selection.get();
     }
 
     public EditPanel.Actions actions() {

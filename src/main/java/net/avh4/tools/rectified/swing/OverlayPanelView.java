@@ -3,23 +3,25 @@ package net.avh4.tools.rectified.swing;
 import net.avh4.math.geometry.Rect;
 import net.avh4.tools.rectified.Observables;
 import net.avh4.tools.rectified.uimodel.cqrs.SelectionQuery;
-import net.avh4.util.Observer;
+import net.avh4.framework.uilayer.mvc.Channel;
+import net.avh4.framework.uilayer.mvc.Observer;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class OverlayPanelView extends JPanel {
+public class OverlayPanelView extends JPanel implements Observer {
+    private final Channel<SelectionQuery> selection;
     Rect selectionBounds = null;
 
     public OverlayPanelView(Observables observables) {
         setOpaque(false);
 
-        observables.selection().watch(new Observer<SelectionQuery>() {
-            @Override public void update(SelectionQuery newValue) {
-                selectionBounds = newValue.selectionBounds();
-                repaint();
-            }
-        });
+        selection = observables.selection();
+    }
+
+    @Override public void update() {
+        selectionBounds = selection.get().selectionBounds();
+        repaint();
     }
 
     @Override protected void paintComponent(Graphics g) {
