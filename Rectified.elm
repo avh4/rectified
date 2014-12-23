@@ -1,5 +1,6 @@
 module Rectified
-  ( top, bottom, left, right, inset
+  ( Element
+  , top, bottom, left, right, inset
   , row, list
   , debug, centeredText, text, html, image, empty
   , grey, color
