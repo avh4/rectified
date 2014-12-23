@@ -13,30 +13,48 @@ import List
 
 type alias Element = (Int,Int) -> G.Element
 
-top : Int -> Element -> Element -> Element
-top size child1 child2 (w,h) =
-  flow down [ child1 (w,size), child2 (w,h-size) ]
+top : Int -> Int -> Element -> Element -> Element
+top size spacing child1 child2 (w,h) =
+  flow down
+    [ child1 (w,size)
+    , G.spacer w spacing
+    , child2 (w,h-size-spacing)
+    ]
 
-bottom : Int -> Element -> Element -> Element
-bottom size child1 child2 (w,h) =
-  flow down [ child1 (w,size), child2 (w,h-size) ]
+bottom : Int -> Int -> Element -> Element -> Element
+bottom size spacing child1 child2 (w,h) =
+  flow down
+    [ child1 (w,size)
+    , G.spacer w spacing
+    , child2 (w,h-size-spacing)
+    ]
 
-left : Int -> Element -> Element -> Element
-left size child1 child2 (w,h) =
-  flow G.right [ child1 (size,h), child2 (w-size,h) ]
+left : Int -> Int -> Element -> Element -> Element
+left size spacing child1 child2 (w,h) =
+  flow G.right
+    [ child1 (size,h)
+    , G.spacer spacing h
+    , child2 (w-size-spacing,h)
+    ]
 
-right : Int -> Element -> Element -> Element
-right size child1 child2 (w,h) =
-  flow G.right [ child2 (w-size,h), child1 (size,h) ]
+right : Int -> Int -> Element -> Element -> Element
+right size spacing child1 child2 (w,h) =
+  flow G.right
+    [ child2 (w-size-spacing,h)
+    , G.spacer spacing h
+    , child1 (size,h)
+    ]
 
-row : List Element -> Element
-row children (w,h) =
-  List.map (\child -> child (w // List.length children,h)) children
+row : Int -> (a -> Element) -> List a -> Element
+row spacing fn vs (w,h) =
+  List.map (\v -> fn v (w // List.length vs,h)) vs
+  |> List.intersperse (G.spacer spacing h)
   |> flow G.right
 
-list : Int -> (a -> Element) -> List a -> Element
-list rowSize fn vs (w,h) =
+list : Int -> Int -> (a -> Element) -> List a -> Element
+list rowSize spacing fn vs (w,h) =
   List.map (\v -> fn v (w,rowSize)) vs
+  |> List.intersperse (G.spacer w spacing)
   |> flow G.down
 
 debug : String -> Element
