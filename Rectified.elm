@@ -1,7 +1,7 @@
 module Rectified
   ( top, bottom, left, right
   , row, list
-  , debug, image
+  , debug, text, image
   , grey
   ) where
 
@@ -59,6 +59,13 @@ list rowSize spacing fn vs (w,h) =
 
 debug : String -> Element
 debug string (w,h) = asText string |> container w h middle
+
+text : Style -> String -> Element
+text st string (w,h) = string
+  |> fromString
+  |> style st
+  |> leftAligned
+  |> container w h middle
 
 image : String -> Element
 image url (w,h) = fittedImage w h url
