@@ -4,6 +4,7 @@ module Rectified
   , row, list
   , debug, centeredText, text, html, image, empty
   , grey, color
+  , clickable
   ) where
 
 import Text (..)
@@ -12,6 +13,8 @@ import Graphics.Element (..)
 import Color as C
 import List
 import Html (..)
+import Graphics.Input as GI
+import Signal
 
 type alias Element = (Int,Int) -> G.Element
 
@@ -99,3 +102,6 @@ grey l child (w,h) = child (w,h)
 color : number -> number -> number -> Element -> Element
 color h s l child d = child d
   |> G.color (C.hsl (degrees h) (s/100) (l/100))
+
+clickable : Signal.Message -> Element -> Element
+clickable message child (w,h) = child (w,h) |> GI.clickable message
