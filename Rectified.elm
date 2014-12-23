@@ -1,5 +1,5 @@
 module Rectified
-  ( top, bottom, left, right
+  ( top, bottom, left, right, inset
   , row, list
   , debug, centeredText, text, html, image, empty
   , grey, color
@@ -45,6 +45,10 @@ right size spacing child1 child2 (w,h) =
     , G.spacer spacing h
     , child1 (size,h)
     ]
+
+inset : Int -> Element -> Element
+inset padding child (w,h) = child (w-padding*2,h-padding*2)
+  |> container w h middle
 
 row : Int -> (a -> Element) -> List a -> Element
 row spacing fn vs (w,h) =
