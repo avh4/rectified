@@ -1,8 +1,8 @@
 module Rectified
   ( top, bottom, left, right
   , row, list
-  , debug, text, image
-  , grey
+  , debug, centeredText, text, html, image, empty
+  , grey, color
   ) where
 
 import Text (..)
@@ -10,6 +10,7 @@ import Graphics.Element as G
 import Graphics.Element (..)
 import Color as C
 import List
+import Html (..)
 
 type alias Element = (Int,Int) -> G.Element
 
@@ -61,15 +62,35 @@ list rowSize spacing fn vs (w,h) =
 debug : String -> Element
 debug string (w,h) = asText string |> container w h middle
 
-text : Style -> String -> Element
-text st string (w,h) = string
+text : Style -> Int -> String -> Element
+text st padding string (w,h) = string
+  |> fromString
+  |> style st
+  |> leftAligned
+  |> container (w-padding*2) (h-padding*2) midLeft
+  |> container w h middle
+
+centeredText : Style -> String -> Element
+centeredText st string (w,h) = string
   |> fromString
   |> style st
   |> leftAligned
   |> container w h middle
 
+html : Int -> Html -> Element
+html padding content (w,h) = toElement (w-padding*2) (h-padding*2) content
+  |> container w h middle
+
 image : String -> Element
 image url (w,h) = fittedImage w h url
 
+empty : Element
+empty (w,h) = spacer w h
+
 grey : number -> Element -> Element
-grey l child (w,h) = child (w,h) |> G.color (C.hsl 0 0 (l/100))
+grey l child (w,h) = child (w,h)
+  |> G.color (C.hsl 0 0 (l/100))
+
+color : number -> number -> number -> Element -> Element
+color h s l child d = child d
+  |> G.color (C.hsl (degrees h) (s/100) (l/100))
