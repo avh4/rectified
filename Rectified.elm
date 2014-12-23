@@ -1,6 +1,7 @@
 module Rectified
   ( Element
   , top, bottom, left, right, inset
+  , rotateLeft
   , row, list
   , debug, centeredText, text, html, image, empty
   , grey, color
@@ -9,6 +10,7 @@ module Rectified
 
 import Text (..)
 import Graphics.Element as G
+import Graphics.Collage as G
 import Graphics.Element (..)
 import Color as C
 import List
@@ -29,9 +31,9 @@ top size spacing child1 child2 (w,h) =
 bottom : Int -> Int -> Element -> Element -> Element
 bottom size spacing child1 child2 (w,h) =
   flow down
-    [ child1 (w,size)
+    [ child2 (w,h-size-spacing)
     , G.spacer w spacing
-    , child2 (w,h-size-spacing)
+    , child1 (w,size)
     ]
 
 left : Int -> Int -> Element -> Element -> Element
@@ -53,6 +55,10 @@ right size spacing child1 child2 (w,h) =
 inset : Int -> Element -> Element
 inset padding child (w,h) = child (w-padding*2,h-padding*2)
   |> container w h middle
+
+rotateLeft : Element -> Element
+rotateLeft child (w,h) =
+  G.collage w h [ child (h,w) |> G.toForm |> G.rotate (degrees 90) ]
 
 row : Int -> (a -> Element) -> List a -> Element
 row spacing fn vs (w,h) =
