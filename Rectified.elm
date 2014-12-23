@@ -56,6 +56,7 @@ list rowSize spacing fn vs (w,h) =
   List.map (\v -> fn v (w,rowSize)) vs
   |> List.intersperse (G.spacer w spacing)
   |> flow G.down
+  |> scrollContainer w h
 
 debug : String -> Element
 debug string (w,h) = asText string |> container w h middle
