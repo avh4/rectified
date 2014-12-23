@@ -64,7 +64,7 @@ list rowSize spacing fn vs (w,h) =
   |> flow G.down
   |> scrollContainer w h
 
-debug : String -> Element
+debug : a -> Element
 debug string (w,h) = asText string |> container w h middle
 
 text : Style -> Int -> String -> Element
