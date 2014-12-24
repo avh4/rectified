@@ -93,6 +93,7 @@ centeredText st string (w,h) = string
 
 html : Int -> Html -> Element
 html padding content (w,h) = toElement (w-padding*2) (h-padding*2) content
+  |> scrollContainer (w-padding*2) (h-padding*2)
   |> container w h middle
 
 image : String -> Element
