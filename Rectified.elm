@@ -81,7 +81,7 @@ text st padding string (w,h) = string
   |> fromString
   |> style st
   |> leftAligned
-  |> container (w-padding*2) (h-padding*2) midLeft
+  |> container (w-padding*2) (h-padding*2) topLeft
   |> container w h middle
 
 centeredText : Style -> String -> Element
