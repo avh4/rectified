@@ -7,7 +7,6 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/../uilayer/uilayer-core/pom.xml" />
         <option value="$PROJECT_DIR$/../uilayer/uilayer-swing/pom.xml" />
         <option value="$PROJECT_DIR$/../uilayer/pom.xml" />
@@ -19,4 +18,3 @@
     <output url="file://$PROJECT_DIR$/classes" />
   </component>
 </project>
-
